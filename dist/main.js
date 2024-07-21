@@ -2,10 +2,51 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/shipClass.js":
-/*!**************************!*\
-  !*** ./src/shipClass.js ***!
-  \**************************/
+/***/ "./src/game-board-class.js":
+/*!*********************************!*\
+  !*** ./src/game-board-class.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   GameBoard: () => (/* binding */ GameBoard)
+/* harmony export */ });
+class GameBoard {
+    constructor() {
+        this.columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+        this.rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        this.board = this.createBoard();
+    }
+
+    createBoard() {
+        let board = [];
+        for (let row of this.rows) {
+            for (let column of this.columns) {
+                let cell = column+row;
+                board.push(cell);
+            }
+        }
+        return board;
+
+    }
+
+    placeShip() {
+
+    }
+
+    receivedAttack(coordinates) {
+        //ship.hit if hit
+        //or record coordinates of hit
+    }
+}
+
+/***/ }),
+
+/***/ "./src/ship-class.js":
+/*!***************************!*\
+  !*** ./src/ship-class.js ***!
+  \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -91,11 +132,16 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _shipClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shipClass */ "./src/shipClass.js");
+/* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
+/* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
 
 
-let playerShip = new _shipClass__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+
+let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
 console.log(playerShip);
+
+let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
+console.log(gameBoard1)
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
