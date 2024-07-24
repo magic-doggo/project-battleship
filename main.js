@@ -16,7 +16,7 @@ class GameBoard {
     constructor() {
         this.columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
         this.rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.board = this.createBoard();
+        this.board = this.createBoard(); //need to know if a square is hit or not. maybe each cell is an array or an object saying if empty/ship/hit
     }
 
     createBoard() {
@@ -43,6 +43,44 @@ class GameBoard {
 
 /***/ }),
 
+/***/ "./src/player-class.js":
+/*!*****************************!*\
+  !*** ./src/player-class.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ComputerPlayer: () => (/* binding */ ComputerPlayer),
+/* harmony export */   HumanPlayer: () => (/* binding */ HumanPlayer),
+/* harmony export */   Player: () => (/* binding */ Player)
+/* harmony export */ });
+/* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
+
+
+class Player {
+    constructor() {
+        this.playerBoard = new _game_board_class__WEBPACK_IMPORTED_MODULE_0__.GameBoard;
+    }
+
+};
+
+class HumanPlayer extends Player {
+    constructor() {
+        super();
+        this.playerType = "human";
+    }
+}
+
+class ComputerPlayer extends Player {
+    constructor() {
+        super();
+        this.playerType = "computer";
+    }
+}
+
+/***/ }),
+
 /***/ "./src/ship-class.js":
 /*!***************************!*\
   !*** ./src/ship-class.js ***!
@@ -60,11 +98,10 @@ class Ship {
         this.nrOfHitsTaken = 0;
     }
     hit() {
-        //this.nrOfHitsTaken += 1;
+        this.nrOfHitsTaken += 1;
     }
     isSunk() {
-        //if nrofhitstaken >= this.length 
-        //this.isshipsunk = true;
+        if (this.nrOfHitsTaken >= this.length) return this.isShipSunk = true;
     }
 
 }
@@ -134,14 +171,21 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
 /* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
+/* harmony import */ var _player_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player-class */ "./src/player-class.js");
 
 
 
-let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
-console.log(playerShip);
 
-let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
-console.log(gameBoard1)
+// let playerShip = new Ship(3);
+// console.log(playerShip);
+
+// let gameBoard1 = new GameBoard;
+// console.log(gameBoard1)
+let player = new _player_class__WEBPACK_IMPORTED_MODULE_2__.Player;
+console.log(player);
+
+let computerPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.ComputerPlayer;
+console.log(computerPlayer);
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
