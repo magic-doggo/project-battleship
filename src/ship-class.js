@@ -5,11 +5,10 @@ export class Ship {
         this.nrOfHitsTaken = 0;
     }
     hit() {
-        //this.nrOfHitsTaken += 1;
+        this.nrOfHitsTaken += 1;
     }
     isSunk() {
-        //if nrofhitstaken >= this.length 
-        //this.isshipsunk = true;
+        if (this.nrOfHitsTaken >= this.length) return this.isShipSunk = true;
     }
 
 }
