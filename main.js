@@ -99,9 +99,11 @@ class Ship {
     }
     hit() {
         this.nrOfHitsTaken += 1;
+        return this.nrOfHitsTaken;
     }
     isSunk() {
         if (this.nrOfHitsTaken >= this.length) return this.isShipSunk = true;
+        return this.isShipSunk = false;
     }
 
 }
@@ -176,16 +178,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// let playerShip = new Ship(3);
-// console.log(playerShip);
+let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+console.log(playerShip);
+for (let i = 0; i < playerShip.length -1 ; i++) {
+    playerShip.hit();
+}
 
 // let gameBoard1 = new GameBoard;
 // console.log(gameBoard1)
-let player = new _player_class__WEBPACK_IMPORTED_MODULE_2__.Player;
-console.log(player);
+// let player = new Player;
+// console.log(player);
 
-let computerPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.ComputerPlayer;
-console.log(computerPlayer);
+// let computerPlayer = new ComputerPlayer;
+// console.log(computerPlayer);
+
+console.log(playerShip.isSunk());
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
