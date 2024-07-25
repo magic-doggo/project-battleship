@@ -180,7 +180,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
 console.log(playerShip);
-for (let i = 0; i < playerShip.length -1 ; i++) {
+for (let i = 0; i < playerShip.length; i++) {
     playerShip.hit();
 }
 
