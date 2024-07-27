@@ -14,25 +14,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 class GameBoard {
     constructor() {
-        this.columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-        this.rows = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        this.board = this.createBoard(); //need to know if a square is hit or not. maybe each cell is an array or an object saying if empty/ship/hit
+        this.columns = new Array(10);
+        this.rows = new Array(10);
+        this.boardArray = new Array(100);
+        // this.board = this.createBoard(); //need to know if a square is hit or not. maybe each cell is an array or an object saying if empty/ship/hit
+        //or maybe have board as an array of 100 zeroes, and change to 1 if ship is placed, 2 if 
+        //do I even need values inside cells? just create 10 columns arrays, each with 10 empty values for cells
+        // x   0     1     2
+        // 0 [0,0] [0,1] [0,2]
+        // 1 [1,0] [1,1] [1,2]
+        // 2 [2,0] [2,1] [2,2]
+        this.placedShipsCoordinates = [];
+        this.hitCoordinates = [];
     }
 
-    createBoard() {
-        let board = [];
-        for (let row of this.rows) {
-            for (let column of this.columns) {
-                let cell = column+row;
-                board.push(cell);
+    // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
+    //try vertical always going down, horizontal always goes to the right? if not after +length not between 0-9, not valid
+    placeShip(ship, coordinates, direction) {
+        let arrayCoords = (coordinates[0] * 10) + coordinates[1];
+        this.boardArray[arrayCoords] = 1; //1 = ship exists there
+        for (let i = 1; i < ship.length; i++) {
+            if (direction == "vertical") {
+                //increase by 10 when row changes (vertical changes)
+                arrayCoords += 10;
+                this.boardArray[arrayCoords] = 1; 
+            } else if (direction == "horizontal") {
+                //increase by 1 when column changes (horizontal changes)
+                arrayCoords += 1;
+                this.boardArray[arrayCoords] = 1;
             }
         }
-        return board;
-
-    }
-
-    placeShip() {
-
     }
 
     receivedAttack(coordinates) {
@@ -40,6 +51,7 @@ class GameBoard {
         //or record coordinates of hit
     }
 }
+
 
 /***/ }),
 
@@ -178,14 +190,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(8);
 console.log(playerShip);
 for (let i = 0; i < playerShip.length; i++) {
     playerShip.hit();
 }
 
-// let gameBoard1 = new GameBoard;
-// console.log(gameBoard1)
+let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
+console.log(gameBoard1.boardArray.length)
 // let player = new Player;
 // console.log(player);
 
@@ -193,6 +205,8 @@ for (let i = 0; i < playerShip.length; i++) {
 // console.log(computerPlayer);
 
 console.log(playerShip.isSunk());
+
+console.log(gameBoard1.placeShip(playerShip, [3,3], "vertical"));
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
