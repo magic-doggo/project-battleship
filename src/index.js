@@ -2,7 +2,7 @@ import { Ship } from "./ship-class";
 import { GameBoard } from "./game-board-class";
 import { ComputerPlayer, Player } from "./player-class";
 
-let playerShip = new Ship(8);
+let playerShip = new Ship(6);
 console.log(playerShip);
 for (let i = 0; i < playerShip.length; i++) {
     playerShip.hit();
@@ -18,4 +18,5 @@ console.log(gameBoard1.boardArray.length)
 
 console.log(playerShip.isSunk());
 
-console.log(gameBoard1.placeShip(playerShip, [3,3], "vertical"));
+console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
+console.log(gameBoard1.boardArray)
