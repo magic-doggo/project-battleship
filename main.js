@@ -16,10 +16,12 @@ class GameBoard {
     constructor() {
 
         this.boardArray = new Array(100);
-        // x   0     1     2
-        // 0 [0,0] [0,1] [0,2]
+        // x   0     1     2        9
+        // 0 [0,0] [0,1] [0,2] .. [0,9]
         // 1 [1,0] [1,1] [1,2]
         // 2 [2,0] [2,1] [2,2]
+        // ...
+        // 9 [9,0] [9,1] [9,2] .. [9,9]
         this.placedShipsCoordinates = [];
         this.hitCoordinates = [];
     }
@@ -28,26 +30,33 @@ class GameBoard {
     //try vertical always going down, horizontal always goes to the right?
     placeShip(ship, coordinates, direction) {
         let arrayCoords = (coordinates[0] * 10) + coordinates[1];
+        let tempArray = [];
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
                 if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically');
                 this.boardArray[arrayCoords] = 1; 
                 //increase by 10 when row changes (vertical changes)
+                tempArray.push(arrayCoords)
                 arrayCoords += 10;
             } else if (direction == "horizontal") {
                 if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
                 //increase by 1 when column changes (horizontal changes)
                 this.boardArray[arrayCoords] = 1;
+                tempArray.push(arrayCoords)
                 arrayCoords += 1;
             }
         }
+        this.placedShipsCoordinates.push(tempArray);
+        return tempArray;
     }
 
-    receivedAttack(coordinates) {
+    receiveAttack(coordinates) {
     //     let arrayCoords = (coordinates[0]*10) + coordinates[1];
     //     if (this.boardArray[arrayCoords] == 1) {
-    //         this.boardArray[arrayCoords = "x"];
+    //         this.boardArray[arrayCoords] = "x"; //place x on board if ship is hit
     //         // ship.hit()
+    //     } else if (this.boardArray[arrayCoords] == undefined) {
+    //         this.boardArray[arrayCoords] = 0; //place 0 on board if attack missed
     //     }
     }
 }
@@ -207,7 +216,7 @@ console.log(gameBoard1.boardArray.length)
 console.log(playerShip.isSunk());
 
 console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
-console.log(gameBoard1.boardArray)
+console.log(gameBoard1)
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
