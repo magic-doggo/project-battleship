@@ -10,6 +10,7 @@ export class GameBoard {
         // 9 [9,0] [9,1] [9,2] .. [9,9]
         this.placedShipsCoordinates = [];
         this.hitCoordinates = [];
+        this.missedCoordinates = [];
     }
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
@@ -37,12 +38,14 @@ export class GameBoard {
     }
 
     receiveAttack(coordinates) {
-    //     let arrayCoords = (coordinates[0]*10) + coordinates[1];
-    //     if (this.boardArray[arrayCoords] == 1) {
-    //         this.boardArray[arrayCoords] = "x"; //place x on board if ship is hit
-    //         // ship.hit()
-    //     } else if (this.boardArray[arrayCoords] == undefined) {
-    //         this.boardArray[arrayCoords] = 0; //place 0 on board if attack missed
-    //     }
+        let arrayCoords = (coordinates[0]*10) + coordinates[1];
+        if (this.boardArray[arrayCoords] == 1) {
+            this.boardArray[arrayCoords] = "x"; //place x on board if ship is hit
+            // ship.hit()
+            this.hitCoordinates.push(arrayCoords);
+        } else if (this.boardArray[arrayCoords] == undefined) {
+            this.boardArray[arrayCoords] = 0; //place 0 on board if attack missed
+            this.missedCoordinates.push(arrayCoords);
+        }
     }
 }
