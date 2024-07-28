@@ -19,4 +19,4 @@ console.log(gameBoard1.boardArray.length)
 console.log(playerShip.isSunk());
 
 console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
-console.log(gameBoard1.boardArray)
+console.log(gameBoard1)

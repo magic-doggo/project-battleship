@@ -21,9 +21,15 @@ test('placeShip() horizontally on a board', () => {
 });
 
 test('placeShip() vertically to return error since length is longer than space left', () => {
-    let ship = { length: 8 }
+    let ship = { length: 8 };
     let gameBoard1 = new GameBoard;
     expect(() => {
         gameBoard1.placeShip(ship, [3, 3], "vertical");
     }).toThrow('ship does not fit vertically');
+});
+
+test('placeShip() to return an array with the boardArray coordinates of the ship', () => {
+    let ship = { length: 3 };
+    let gameBoard1 = new GameBoard;
+    expect(gameBoard1.placeShip(ship, [3, 3], "vertical")).toEqual([33, 43, 53]);
 });
