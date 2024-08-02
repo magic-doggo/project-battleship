@@ -12,9 +12,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   GameBoard: () => (/* binding */ GameBoard)
 /* harmony export */ });
+/* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
+/* harmony import */ var _player_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./player-class */ "./src/player-class.js");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/index.js");
+
+
+
+
+
 class GameBoard {
     constructor() {
-
         this.boardArray = new Array(100);
         // x   0     1     2        9
         // 0 [0,0] [0,1] [0,2] .. [0,9]
@@ -22,9 +29,11 @@ class GameBoard {
         // 2 [2,0] [2,1] [2,2]
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
-        this.placedShipsCoordinates = [];
+        this.placedShipsCoordinates = []; //iterate through this when ship is hit?
         this.hitCoordinates = [];
         this.missedCoordinates = [];
+        this.objectOfPlacedShips = {};
+
     }
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
@@ -32,6 +41,7 @@ class GameBoard {
     placeShip(ship, coordinates, direction) {
         let arrayCoords = (coordinates[0] * 10) + coordinates[1];
         let tempArray = [];
+        let tempShipObject = {};
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
                 if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically');
@@ -46,24 +56,91 @@ class GameBoard {
                 tempArray.push(arrayCoords)
                 arrayCoords += 1;
             }
-        }
+        } //make a way to prevent adding ship if any of the cells overlap with other ships
+        //maybe a different function so it does not get too big? e.g. areArrayElemsEmpty()
         this.placedShipsCoordinates.push(tempArray);
+        this.objectOfPlacedShips[ship.name] = tempArray;
+        //i can get ship name from parameter, let's store that in the class instance?
+        //maybe I can't get ship name from parameter? Maybe deduce ship name based on array length?
+        //cannot do that unless I do not accept ships with same length
+        //maybe create the ship instance inside the placeShip method? have parameter for lenght and create based on that?
+        // console.log(ship);
         return tempArray;
     }
 
     receiveAttack(coordinates) {
-        let arrayCoords = (coordinates[0]*10) + coordinates[1];
-        if (this.boardArray[arrayCoords] == 1) {
-            this.boardArray[arrayCoords] = "x"; //place x on board if ship is hit
+        let attackedArrayCoords = (coordinates[0]*10) + coordinates[1];
+        // console.log(this.boardArray[attackedArrayCoords]);
+        if (this.boardArray[attackedArrayCoords] == 1) {
+            this.boardArray[attackedArrayCoords] = "x"; //place x on board if ship is hit
             // ship.hit()
-            this.hitCoordinates.push(arrayCoords);
-        } else if (this.boardArray[arrayCoords] == undefined) {
-            this.boardArray[arrayCoords] = 0; //place 0 on board if attack missed
-            this.missedCoordinates.push(arrayCoords);
+            this.hitCoordinates.push(attackedArrayCoords);
+            
+            for (let ship in this.objectOfPlacedShips) {
+                console.log(this.objectOfPlacedShips[ship]);
+                for (let coordinate of this.objectOfPlacedShips[ship]) {
+                    if (coordinate === attackedArrayCoords) {
+                        // console.log(ship);
+                        ship.hit();
+                    }
+                }
+            }
+        } else if (this.boardArray[attackedArrayCoords] == undefined) {
+            this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
+            this.missedCoordinates.push(attackedArrayCoords);
         }
+    }
+
+    checkIfAllShipsSunk() {
+
     }
 }
 
+
+/***/ }),
+
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   gameBoard1: () => (/* binding */ gameBoard1),
+/* harmony export */   playerShip: () => (/* binding */ playerShip)
+/* harmony export */ });
+/* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
+/* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
+/* harmony import */ var _player_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player-class */ "./src/player-class.js");
+
+
+
+
+let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6, "playerShip");
+let playerShip2 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3, "playerShip2");
+// console.log(playerShip);
+// for (let i = 0; i < playerShip.length; i++) {
+//     playerShip.hit();
+// }
+
+let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
+// console.log(gameBoard1.boardArray.length)
+// let player = new Player;
+// console.log(player);
+
+// let computerPlayer = new ComputerPlayer;
+// console.log(computerPlayer);
+
+// console.log(playerShip.isSunk());
+
+console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
+console.log(gameBoard1.placeShip(playerShip2, [6,2], "vertical"));
+
+console.log(gameBoard1.placedShipsCoordinates);
+
+console.log(gameBoard1.receiveAttack([3,3]));
+console.log(gameBoard1.objectOfPlacedShips)
 
 /***/ }),
 
@@ -116,7 +193,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Ship: () => (/* binding */ Ship)
 /* harmony export */ });
 class Ship {
-    constructor(length) {
+    constructor(length, name) {
+        this.name = name;
         this.length = length;
         this.isShipSunk = false;
         this.nrOfHitsTaken = 0;
@@ -190,36 +268,12 @@ class Ship {
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
-/* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
-/* harmony import */ var _player_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player-class */ "./src/player-class.js");
-
-
-
-
-let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6);
-console.log(playerShip);
-for (let i = 0; i < playerShip.length; i++) {
-    playerShip.hit();
-}
-
-let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
-console.log(gameBoard1.boardArray.length)
-// let player = new Player;
-// console.log(player);
-
-// let computerPlayer = new ComputerPlayer;
-// console.log(computerPlayer);
-
-console.log(playerShip.isSunk());
-
-console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
-console.log(gameBoard1)
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
