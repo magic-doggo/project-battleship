@@ -96,7 +96,6 @@ class GameBoard {
             for (let ship of this.arrayOfPlacedShipObjects) {
                 for (let coordinate of ship.coordinates) {
                     if (coordinate === attackedArrayCoords) {
-                        console.log(ship.shipInstance);
                         ship.shipInstance.hit();
                     }
                 }
