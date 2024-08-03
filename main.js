@@ -21,7 +21,7 @@ class GameBoard {
         // 2 [2,0] [2,1] [2,2]
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
-        this.placedShipsCoordinates = []; //iterate through this when ship is hit?
+        // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
         this.hitCoordinates = [];
         this.missedCoordinates = [];
         // this.objectOfPlacedShips = {};
@@ -37,62 +37,42 @@ class GameBoard {
         let tempShipObject = {};
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
-                if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically');
-                this.boardArray[arrayCoords] = 1; 
+                if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
                 //increase by 10 when row changes (vertical changes)
-                tempArray.push(arrayCoords)
+                if (this.boardArray[arrayCoords] != undefined) {
+                    tempArray = [];
+                    throw new Error (`ship overlaps vertically with another at index ${arrayCoords}`);
+                }
+                tempArray.push(arrayCoords);
                 arrayCoords += 10;
             } else if (direction == "horizontal") {
                 if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+                if (this.boardArray[arrayCoords] != undefined) {
+                    tempArray = [];
+                    throw new Error (`ship overlaps horizontally with another at index ${arrayCoords}`)
+                };
                 //increase by 1 when column changes (horizontal changes)
-                this.boardArray[arrayCoords] = 1;
-                tempArray.push(arrayCoords)
+                tempArray.push(arrayCoords);
                 arrayCoords += 1;
             }
-        } //make a way to prevent adding ship if any of the cells overlap with other ships
-        //maybe a different function so it does not get too big? e.g. areArrayElemsEmpty()
-        this.placedShipsCoordinates.push(tempArray);
-        // this.objectOfPlacedShips[ship.name] = tempArray;
-        // this.objectOfPlacedShips2[ship.name] = {
-        //     coordinates: tempArray,
-        //     shipInstance: ship
-        // }
+        }
+        // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
+
         tempShipObject.coordinates = tempArray;
         tempShipObject.shipInstance = ship;
         this.arrayOfPlacedShipObjects.push(tempShipObject);
-        //i can get ship name from parameter, let's store that in the class instance?
-        //maybe I can't get ship name from parameter? Maybe deduce ship name based on array length?
-        //cannot do that unless I do not accept ships with same length
-        //maybe create the ship instance inside the placeShip method? have parameter for lenght and create based on that?
-        // console.log(ship);
+
+        for (let coordinate of tempArray) {
+            this.boardArray[coordinate] = 1;
+        }
         return tempArray;
     }
 
     receiveAttack(coordinates) {
-        let attackedArrayCoords = (coordinates[0]*10) + coordinates[1];
+        let attackedArrayCoords = (coordinates[0] * 10) + coordinates[1];
         if (this.boardArray[attackedArrayCoords] == 1) {
             this.boardArray[attackedArrayCoords] = "x"; //place x on board if ship is hit
             this.hitCoordinates.push(attackedArrayCoords);
-            
-            // for (let ship in this.objectOfPlacedShips) {
-            //     // console.log(this.objectOfPlacedShips[ship]);
-            //     for (let coordinate of this.objectOfPlacedShips[ship]) {
-            //         if (coordinate === attackedArrayCoords) {
-            //             // console.log(ship);
-            //             // ship.hit();
-            //         }
-            //     }
-            // }
-            
-            // for (let ship in this.objectOfPlacedShips2) {
-            //     console.log(this.objectOfPlacedShips2[ship].coordinates)
-            //     for (let coordinate of this.objectOfPlacedShips2[ship].coordinates) {
-            //         if (coordinate === attackedArrayCoords) {
-            //             console.log(this.objectOfPlacedShips2[ship].shipInstance);
-            //             this.objectOfPlacedShips2[ship].shipInstance.hit();
-            //         }
-            //     }
-            // }
             for (let ship of this.arrayOfPlacedShipObjects) {
                 for (let coordinate of ship.coordinates) {
                     if (coordinate === attackedArrayCoords) {
@@ -257,15 +237,21 @@ __webpack_require__.r(__webpack_exports__);
 
 let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6);
 let playerShip2 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let playerShip3 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3)
 
 let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
 
-gameBoard1.placeShip(playerShip, [3,3], "horizontal");
+console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
 gameBoard1.placeShip(playerShip2, [6,2], "vertical");
 
 gameBoard1.receiveAttack([3,3]);
-console.log(playerShip.nrOfHitsTaken)
-console.log(gameBoard1.arrayOfPlacedShipObjects)
+// console.log(playerShip.nrOfHitsTaken)
+// console.log(gameBoard1.arrayOfPlacedShipObjects)
+// console.log(gameBoard1.placedShipsCoordinates)
+
+gameBoard1.placeShip(playerShip3, [2,4], "vertical");
+console.log(gameBoard1.boardArray);
+console.log("aaaaaaaaaas")
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
