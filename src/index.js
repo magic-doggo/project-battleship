@@ -2,8 +2,8 @@ import { Ship } from "./ship-class";
 import { GameBoard } from "./game-board-class";
 import { ComputerPlayer, Player } from "./player-class";
 
-export let playerShip = new Ship(6, "playerShip");
-let playerShip2 = new Ship(3, "playerShip2");
+export let playerShip = new Ship(6);
+let playerShip2 = new Ship(3);
 
 export let gameBoard1 = new GameBoard;
 

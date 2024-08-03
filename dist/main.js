@@ -165,8 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Ship: () => (/* binding */ Ship)
 /* harmony export */ });
 class Ship {
-    constructor(length, name) {
-        this.name = name;
+    constructor(length) {
+        // this.name = name;
         this.length = length;
         this.isShipSunk = false;
         this.nrOfHitsTaken = 0;
@@ -256,8 +256,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6, "playerShip");
-let playerShip2 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3, "playerShip2");
+let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6);
+let playerShip2 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
 
 let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
 
