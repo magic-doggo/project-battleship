@@ -22,15 +22,13 @@ class GameBoard {
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
         // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
-        this.hitCoordinates = [];
+        this.hitCoordinates = []; //no functionality relies on this yet
         this.missedCoordinates = [];
-        // this.objectOfPlacedShips = {};
-        // this.objectOfPlacedShips2 = {};
-        this.arrayOfPlacedShipObjects = [];
+        this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
-    //try vertical always going down, horizontal always goes to the right?
+    //try vertical always going down, horizontal always goes to the right
     placeShip(ship, coordinates, direction) {
         let arrayCoords = (coordinates[0] * 10) + coordinates[1];
         let tempArray = [];
@@ -88,7 +86,8 @@ class GameBoard {
     }
 
     checkIfAllShipsSunk() {
-
+        if (this.boardArray.includes(1)) return false;
+        return true;
     }
 }
 
@@ -236,22 +235,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6);
-let playerShip2 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
-let playerShip3 = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3)
+// let playerShip2 = new Ship(3);
+// let playerShip3 = new Ship(3)
 
 let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
 
-console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
-gameBoard1.placeShip(playerShip2, [6,2], "vertical");
+// console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
+// gameBoard1.placeShip(playerShip2, [6,2], "vertical");
 
 gameBoard1.receiveAttack([3,3]);
 // console.log(playerShip.nrOfHitsTaken)
 // console.log(gameBoard1.arrayOfPlacedShipObjects)
 // console.log(gameBoard1.placedShipsCoordinates)
 
-gameBoard1.placeShip(playerShip3, [2,4], "vertical");
+// gameBoard1.placeShip(playerShip3, [2,4], "vertical");
 console.log(gameBoard1.boardArray);
 console.log("aaaaaaaaaas")
+
+console.log(gameBoard1.checkIfAllShipsSunk());
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
