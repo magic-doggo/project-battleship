@@ -75,4 +75,13 @@ export class GameBoard {
         if (this.boardArray.includes(1)) return false;
         return true;
     }
+
+    renderBoard(boardContainer, generalGridClass, specificPlayerGridClass) {
+        for (let cell of this.boardArray) {
+            let gridItem = document.createElement('div');
+            boardContainer.appendChild(gridItem);
+            gridItem.classList.add(generalGridClass);
+            gridItem.classList.add(specificPlayerGridClass);
+        }
+    }
 }

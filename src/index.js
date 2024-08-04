@@ -1,6 +1,7 @@
 import { Ship } from "./ship-class";
 import { GameBoard } from "./game-board-class";
 import { ComputerPlayer, Player, HumanPlayer } from "./player-class";
+import './style.css';
 
 let playerDestroyer = new Ship(2);
 let playerSubmarine = new Ship(3);
@@ -35,5 +36,15 @@ placeShips();
 console.log(humanPlayer.playerBoard.boardArray);
 console.log(computerPlayer.playerBoard.boardArray);
 
+let humanBoard = document.getElementById('human-board');
+let computerBoard = document.getElementById('computer-board');
 
+// for (let cell of humanPlayer.playerBoard.boardArray) {
+//     let gridItem = document.createElement('div');
+//     humanBoard.appendChild(gridItem);
+//     gridItem.classList.add('gridItem');
+//     gridItem.classList.add('humanGridItem');
+// }
 
+humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
+console.log(computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem'));
