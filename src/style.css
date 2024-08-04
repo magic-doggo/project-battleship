@@ -1,3 +1,18 @@
-* {
+#boards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+    width: 400px;
+}
+
+.gridItem {
+    height: 40px;
+    width: 40px;
+    box-sizing: border-box;
     border: 1px solid red;
 }
