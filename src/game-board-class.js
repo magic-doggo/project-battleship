@@ -8,15 +8,13 @@ export class GameBoard {
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
         // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
-        this.hitCoordinates = [];
+        this.hitCoordinates = []; //no functionality relies on this yet
         this.missedCoordinates = [];
-        // this.objectOfPlacedShips = {};
-        // this.objectOfPlacedShips2 = {};
-        this.arrayOfPlacedShipObjects = [];
+        this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
-    //try vertical always going down, horizontal always goes to the right?
+    //try vertical always going down, horizontal always goes to the right
     placeShip(ship, coordinates, direction) {
         let arrayCoords = (coordinates[0] * 10) + coordinates[1];
         let tempArray = [];
@@ -74,6 +72,7 @@ export class GameBoard {
     }
 
     checkIfAllShipsSunk() {
-
+        if (this.boardArray.includes(1)) return false;
+        return true;
     }
 }

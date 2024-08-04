@@ -74,3 +74,19 @@ test('placeShip to throw error if ship would overlap with another', () => {
       gameBoard1.placeShip(ship2, [2,4], 'vertical');
     }).toThrow();
   });
+
+  test('checkIfAllShipsSunk to return true if there are no ships standing', () => {
+    let gameBoard1 = new GameBoard;
+    let ship = new Ship(1);
+    gameBoard1.placeShip(ship, [3,3], 'vertical');
+    gameBoard1.receiveAttack([3,3]);
+    expect(gameBoard1.checkIfAllShipsSunk()).toBe(true);
+  })
+
+  test('checkIfAllShipsSunk to return true if there are no ships standing', () => {
+    let gameBoard1 = new GameBoard;
+    let ship = new Ship(2);
+    gameBoard1.placeShip(ship, [3,3], 'vertical');
+    gameBoard1.receiveAttack([3,3]);
+    expect(gameBoard1.checkIfAllShipsSunk()).toBe(false);
+  })
