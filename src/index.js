@@ -1,6 +1,6 @@
 import { Ship } from "./ship-class";
 import { GameBoard } from "./game-board-class";
-import { ComputerPlayer, Player } from "./player-class";
+import { ComputerPlayer, Player, HumanPlayer } from "./player-class";
 
 export let playerShip = new Ship(6);
 // let playerShip2 = new Ship(3);
@@ -21,3 +21,5 @@ console.log(gameBoard1.boardArray);
 console.log("aaaaaaaaaas")
 
 console.log(gameBoard1.checkIfAllShipsSunk());
+let player1 = new HumanPlayer;
+console.log(player1.playerBoard.boardArray.length)

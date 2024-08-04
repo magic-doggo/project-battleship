@@ -253,6 +253,8 @@ console.log(gameBoard1.boardArray);
 console.log("aaaaaaaaaas")
 
 console.log(gameBoard1.checkIfAllShipsSunk());
+let player1 = new _player_class__WEBPACK_IMPORTED_MODULE_2__.HumanPlayer;
+console.log(player1.playerBoard.boardArray.length)
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
