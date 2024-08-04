@@ -223,10 +223,6 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   gameBoard1: () => (/* binding */ gameBoard1),
-/* harmony export */   playerShip: () => (/* binding */ playerShip)
-/* harmony export */ });
 /* harmony import */ var _ship_class__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship-class */ "./src/ship-class.js");
 /* harmony import */ var _game_board_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./game-board-class */ "./src/game-board-class.js");
 /* harmony import */ var _player_class__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player-class */ "./src/player-class.js");
@@ -234,27 +230,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let playerShip = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(6);
-// let playerShip2 = new Ship(3);
-// let playerShip3 = new Ship(3)
+let playerDestroyer = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(2);
+let playerSubmarine = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let playerCruiser = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let playerBattleship = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(4);
+let playerCarrier = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(5);
 
-let gameBoard1 = new _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard;
+let computerDestroyer = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(2);
+let computerSubmarine = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let computerCruiser = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(3);
+let computerBattleship = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(4);
+let computerCarrier = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(5);
 
-// console.log(gameBoard1.placeShip(playerShip, [3,3], "horizontal"));
-// gameBoard1.placeShip(playerShip2, [6,2], "vertical");
+let humanPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.HumanPlayer;
+let computerPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.ComputerPlayer;
 
-gameBoard1.receiveAttack([3,3]);
-// console.log(playerShip.nrOfHitsTaken)
-// console.log(gameBoard1.arrayOfPlacedShipObjects)
-// console.log(gameBoard1.placedShipsCoordinates)
+function placeShips() {
+    humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
+    humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
+    humanPlayer.playerBoard.placeShip(playerCruiser, [0,2], 'vertical');
+    humanPlayer.playerBoard.placeShip(playerBattleship, [0,3], 'vertical');
+    humanPlayer.playerBoard.placeShip(playerCarrier, [0,4], 'vertical');
 
-// gameBoard1.placeShip(playerShip3, [2,4], "vertical");
-console.log(gameBoard1.boardArray);
-console.log("aaaaaaaaaas")
+    computerPlayer.playerBoard.placeShip(computerDestroyer, [5,0], 'horizontal');
+    computerPlayer.playerBoard.placeShip(computerSubmarine, [6,0], 'horizontal');
+    computerPlayer.playerBoard.placeShip(computerCruiser, [7,0], 'horizontal');
+    computerPlayer.playerBoard.placeShip(computerBattleship, [8,0], 'horizontal');
+    computerPlayer.playerBoard.placeShip(computerCarrier, [9,0], 'horizontal');
+}
+placeShips();
 
-console.log(gameBoard1.checkIfAllShipsSunk());
-let player1 = new _player_class__WEBPACK_IMPORTED_MODULE_2__.HumanPlayer;
-console.log(player1.playerBoard.boardArray.length)
+console.log(humanPlayer.playerBoard.boardArray);
+console.log(computerPlayer.playerBoard.boardArray);
+
+
+
+
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
