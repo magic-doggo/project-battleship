@@ -21,11 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `/* * {
-    border: 1px solid red;
-} */
-
-#boards-container {
+___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -42,7 +38,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `/* * {
     width: 40px;
     box-sizing: border-box;
     border: 1px solid red;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;;GAEG;;AAEH;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB","sourcesContent":["/* * {\n    border: 1px solid red;\n} */\n\n#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.gridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.gridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -524,7 +520,7 @@ class GameBoard {
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
-                    throw new Error (`ship overlaps vertically with another at index ${arrayCoords}`);
+                    throw new Error(`ship overlaps vertically with another at index ${arrayCoords}`);
                 }
                 tempArray.push(arrayCoords);
                 arrayCoords += 10;
@@ -532,7 +528,7 @@ class GameBoard {
                 if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
-                    throw new Error (`ship overlaps horizontally with another at index ${arrayCoords}`)
+                    throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
                 };
                 //increase by 1 when column changes (horizontal changes)
                 tempArray.push(arrayCoords);
@@ -581,10 +577,32 @@ class GameBoard {
             boardContainer.appendChild(gridItem);
             gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
+            // return childDivs = document.getElementsByClassName(specificPlayerGridClass);
+        }
+    }
+
+    updateBoard(specificPlayerGridClass) {
+        let childDivs = document.getElementsByClassName(specificPlayerGridClass);
+        //clear the board visually
+        for (let i = 0; i < this.boardArray.length; i++) {
+            childDivs[i].innerText = "";
+        }
+        for (let i = 0; i < this.boardArray.length; i++) {
+            if (this.boardArray[i] == 1) {
+                childDivs[i].innerText = "ship";
+            }
         }
     }
 }
 
+// function firstDigit(n) { //if I need to convert array index to coordiante
+//     while (n >= 10) n / 10;
+//     return Math.floor(n)
+// }
+
+// function lastDigit(n) {
+//     return Math.floor(n % 10);
+// }
 
 /***/ }),
 
@@ -758,6 +776,11 @@ let computerCarrier = new _ship_class__WEBPACK_IMPORTED_MODULE_0__.Ship(5);
 let humanPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.HumanPlayer;
 let computerPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.ComputerPlayer;
 
+let humanBoard = document.getElementById('human-board');
+let computerBoard = document.getElementById('computer-board');
+humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
+computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
+
 function placeShips() {
     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
     humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
@@ -776,18 +799,13 @@ placeShips();
 console.log(humanPlayer.playerBoard.boardArray);
 console.log(computerPlayer.playerBoard.boardArray);
 
-let humanBoard = document.getElementById('human-board');
-let computerBoard = document.getElementById('computer-board');
+// humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
+// computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
 
-// for (let cell of humanPlayer.playerBoard.boardArray) {
-//     let gridItem = document.createElement('div');
-//     humanBoard.appendChild(gridItem);
-//     gridItem.classList.add('gridItem');
-//     gridItem.classList.add('humanGridItem');
-// }
+humanPlayer.playerBoard.updateBoard("humanGridItem");
+computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-console.log(computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem'));
+
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map

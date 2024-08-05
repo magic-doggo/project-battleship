@@ -18,6 +18,11 @@ let computerCarrier = new Ship(5);
 let humanPlayer = new HumanPlayer;
 let computerPlayer = new ComputerPlayer;
 
+let humanBoard = document.getElementById('human-board');
+let computerBoard = document.getElementById('computer-board');
+humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
+computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
+
 function placeShips() {
     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
     humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
@@ -36,15 +41,9 @@ placeShips();
 console.log(humanPlayer.playerBoard.boardArray);
 console.log(computerPlayer.playerBoard.boardArray);
 
-let humanBoard = document.getElementById('human-board');
-let computerBoard = document.getElementById('computer-board');
+// humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
+// computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
 
-// for (let cell of humanPlayer.playerBoard.boardArray) {
-//     let gridItem = document.createElement('div');
-//     humanBoard.appendChild(gridItem);
-//     gridItem.classList.add('gridItem');
-//     gridItem.classList.add('humanGridItem');
-// }
+humanPlayer.playerBoard.updateBoard("humanGridItem");
+computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-console.log(computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem'));

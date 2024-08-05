@@ -25,7 +25,7 @@ export class GameBoard {
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
-                    throw new Error (`ship overlaps vertically with another at index ${arrayCoords}`);
+                    throw new Error(`ship overlaps vertically with another at index ${arrayCoords}`);
                 }
                 tempArray.push(arrayCoords);
                 arrayCoords += 10;
@@ -33,7 +33,7 @@ export class GameBoard {
                 if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
-                    throw new Error (`ship overlaps horizontally with another at index ${arrayCoords}`)
+                    throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
                 };
                 //increase by 1 when column changes (horizontal changes)
                 tempArray.push(arrayCoords);
@@ -82,6 +82,29 @@ export class GameBoard {
             boardContainer.appendChild(gridItem);
             gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
+            // return childDivs = document.getElementsByClassName(specificPlayerGridClass);
+        }
+    }
+
+    updateBoard(specificPlayerGridClass) {
+        let childDivs = document.getElementsByClassName(specificPlayerGridClass);
+        //clear the board visually
+        for (let i = 0; i < this.boardArray.length; i++) {
+            childDivs[i].innerText = "";
+        }
+        for (let i = 0; i < this.boardArray.length; i++) {
+            if (this.boardArray[i] == 1) {
+                childDivs[i].innerText = "ship";
+            }
         }
     }
 }
+
+// function firstDigit(n) { //if I need to convert array index to coordiante
+//     while (n >= 10) n / 10;
+//     return Math.floor(n)
+// }
+
+// function lastDigit(n) {
+//     return Math.floor(n % 10);
+// }
