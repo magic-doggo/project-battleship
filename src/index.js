@@ -43,7 +43,7 @@ console.log(computerPlayer.playerBoard.boardArray);
 
 // humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
 // computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
-
+humanPlayer.playerBoard.receiveAttack([0,0]);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 

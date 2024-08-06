@@ -66,7 +66,7 @@ export class GameBoard {
             }
 
         } else if (this.boardArray[attackedArrayCoords] == undefined) {
-            this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
+            // this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
             this.missedCoordinates.push(attackedArrayCoords);
         }
     }
@@ -77,12 +77,15 @@ export class GameBoard {
     }
 
     renderBoard(boardContainer, generalGridClass, specificPlayerGridClass) {
-        for (let cell of this.boardArray) {
+        for (let i = 0; i < this.boardArray.length; i++) {
             let gridItem = document.createElement('div');
             boardContainer.appendChild(gridItem);
             gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
-            // return childDivs = document.getElementsByClassName(specificPlayerGridClass);
+            let [a, b] = [firstDigit(i), lastDigit(i)];
+            gridItem.addEventListener('click', () => {
+                this.onCellClick([a, b]);
+            });
         }
     }
 
@@ -92,19 +95,30 @@ export class GameBoard {
         for (let i = 0; i < this.boardArray.length; i++) {
             childDivs[i].innerText = "";
         }
+        //repopulate the board visually with new location of ships and hits
         for (let i = 0; i < this.boardArray.length; i++) {
             if (this.boardArray[i] == 1) {
-                childDivs[i].innerText = "ship";
+                childDivs[i].innerText = 'ship';
+            } else if (this.boardArray[i] == 'x') {
+                childDivs[i].innerText = 'hit';
+            } else if (this.boardArray[i] == 0) {
+                childDivs[i].innerText = 'miss';
             }
         }
     }
+
+    onCellClick(coordinates) {
+        this.receiveAttack(coordinates);
+        console.log(this.boardArray)
+    }
 }
 
-// function firstDigit(n) { //if I need to convert array index to coordiante
-//     while (n >= 10) n / 10;
-//     return Math.floor(n)
-// }
+function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
+    while (n >= 10) n /= 10;
+    return Math.floor(n)
+}
 
-// function lastDigit(n) {
-//     return Math.floor(n % 10);
-// }
+function lastDigit(n) { //use to get 2nd idex digit and convert to 2nd coordinate
+    if (n > 10) return Math.floor(n % 10);
+    return 0;
+}
