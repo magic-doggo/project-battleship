@@ -47,3 +47,4 @@ humanPlayer.playerBoard.receiveAttack([0,0]);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 
+//does clicking populate the array correctly? need to differentiate between boards, maybe player turns
