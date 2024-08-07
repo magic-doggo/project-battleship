@@ -561,9 +561,13 @@ class GameBoard {
             }
 
         } else if (this.boardArray[attackedArrayCoords] == undefined) {
-            // this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
+            this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
             this.missedCoordinates.push(attackedArrayCoords);
         }
+        else if (this.boardArray[attackedArrayCoords] == "x" || this.boardArray[attackedArrayCoords] == 0) {
+            throw new Error (`You have already attacked ${coordinates} before, try a different spot`);
+        }
+        else throw new Error ('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
     }
 
     checkIfAllShipsSunk() {
@@ -577,14 +581,25 @@ class GameBoard {
             boardContainer.appendChild(gridItem);
             gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
-            let [a, b] = [firstDigit(i), lastDigit(i)];
-            gridItem.addEventListener('click', () => {
-                this.onCellClick([a, b]);
-            });
+            if (i < 10) {
+                let firstIndex = 0;
+                let secondIndex = firstDigit(i)
+                let [a, b] = [firstIndex, secondIndex];
+                gridItem.addEventListener('click', () => {
+                    this.onCellClick([a, b]);
+                });
+            } else {
+                let firstIndex = firstDigit(i);
+                let secondIndex = lastDigit(i);
+                let [a, b] = [firstIndex, secondIndex];
+                gridItem.addEventListener('click', () => {
+                    this.onCellClick([a, b]);
+                });
+            }
         }
     }
 
-    updateBoard(specificPlayerGridClass) {
+    updateBoard(specificPlayerGridClass) { //maybe do not need player specific class param, since method is ran on 1 player board anyway
         let childDivs = document.getElementsByClassName(specificPlayerGridClass);
         //clear the board visually
         for (let i = 0; i < this.boardArray.length; i++) {
@@ -603,6 +618,7 @@ class GameBoard {
     }
 
     onCellClick(coordinates) {
+        console.log(coordinates);
         this.receiveAttack(coordinates);
         console.log(this.boardArray)
     }
@@ -614,8 +630,7 @@ function firstDigit(n) { //use to get 1st index digit and convert too 1st coordi
 }
 
 function lastDigit(n) { //use to get 2nd idex digit and convert to 2nd coordinate
-    if (n > 10) return Math.floor(n % 10);
-    return 0;
+    return Math.floor(n % 10);
 }
 
 /***/ }),
@@ -819,6 +834,7 @@ humanPlayer.playerBoard.receiveAttack([0,0]);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 
+//does clicking populate the array correctly? need to differentiate between boards, maybe player turns
 
 /******/ })()
 ;
