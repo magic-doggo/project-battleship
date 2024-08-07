@@ -33,12 +33,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     width: 400px;
 }
 
-.gridItem {
+.humanGridItem,
+.computerGridItem {
     height: 40px;
     width: 40px;
     box-sizing: border-box;
     border: 1px solid red;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.gridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -565,9 +566,9 @@ class GameBoard {
             this.missedCoordinates.push(attackedArrayCoords);
         }
         else if (this.boardArray[attackedArrayCoords] == "x" || this.boardArray[attackedArrayCoords] == 0) {
-            throw new Error (`You have already attacked ${coordinates} before, try a different spot`);
+            throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
-        else throw new Error ('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
+        else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
     }
 
     checkIfAllShipsSunk() {
@@ -575,11 +576,11 @@ class GameBoard {
         return true;
     }
 
-    renderBoard(boardContainer, generalGridClass, specificPlayerGridClass) {
+    renderBoard(boardContainer, specificPlayerGridClass) {//no longer using generalgridclass?
         for (let i = 0; i < this.boardArray.length; i++) {
             let gridItem = document.createElement('div');
             boardContainer.appendChild(gridItem);
-            gridItem.classList.add(generalGridClass);
+            // gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
             if (i < 10) {
                 let firstIndex = 0;
@@ -619,8 +620,9 @@ class GameBoard {
 
     onCellClick(coordinates) {
         console.log(coordinates);
+        let classNameOfGridItem = event.target.className; // is event.target.classname deprecated?
         this.receiveAttack(coordinates);
-        console.log(this.boardArray)
+        this.updateBoard(classNameOfGridItem);
     }
 }
 
@@ -807,8 +809,8 @@ let computerPlayer = new _player_class__WEBPACK_IMPORTED_MODULE_2__.ComputerPlay
 
 let humanBoard = document.getElementById('human-board');
 let computerBoard = document.getElementById('computer-board');
-humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
+humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
+computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
 function placeShips() {
     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');

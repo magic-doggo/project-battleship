@@ -70,9 +70,9 @@ export class GameBoard {
             this.missedCoordinates.push(attackedArrayCoords);
         }
         else if (this.boardArray[attackedArrayCoords] == "x" || this.boardArray[attackedArrayCoords] == 0) {
-            throw new Error (`You have already attacked ${coordinates} before, try a different spot`);
+            throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
-        else throw new Error ('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
+        else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
     }
 
     checkIfAllShipsSunk() {
@@ -80,11 +80,11 @@ export class GameBoard {
         return true;
     }
 
-    renderBoard(boardContainer, generalGridClass, specificPlayerGridClass) {
+    renderBoard(boardContainer, specificPlayerGridClass) {//no longer using generalgridclass?
         for (let i = 0; i < this.boardArray.length; i++) {
             let gridItem = document.createElement('div');
             boardContainer.appendChild(gridItem);
-            gridItem.classList.add(generalGridClass);
+            // gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
             if (i < 10) {
                 let firstIndex = 0;
@@ -124,8 +124,9 @@ export class GameBoard {
 
     onCellClick(coordinates) {
         console.log(coordinates);
+        let classNameOfGridItem = event.target.className; // is event.target.classname deprecated?
         this.receiveAttack(coordinates);
-        console.log(this.boardArray)
+        this.updateBoard(classNameOfGridItem);
     }
 }
 

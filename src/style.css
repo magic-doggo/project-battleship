@@ -10,7 +10,8 @@
     width: 400px;
 }
 
-.gridItem {
+.humanGridItem,
+.computerGridItem {
     height: 40px;
     width: 40px;
     box-sizing: border-box;

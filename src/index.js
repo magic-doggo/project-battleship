@@ -20,8 +20,8 @@ let computerPlayer = new ComputerPlayer;
 
 let humanBoard = document.getElementById('human-board');
 let computerBoard = document.getElementById('computer-board');
-humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
+humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
+computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
 function placeShips() {
     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
