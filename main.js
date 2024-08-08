@@ -492,7 +492,9 @@ module.exports = styleTagTransform;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   GameBoard: () => (/* binding */ GameBoard)
+/* harmony export */   GameBoard: () => (/* binding */ GameBoard),
+/* harmony export */   firstDigit: () => (/* binding */ firstDigit),
+/* harmony export */   lastDigit: () => (/* binding */ lastDigit)
 /* harmony export */ });
 class GameBoard {
     constructor() {
@@ -586,15 +588,15 @@ class GameBoard {
                 let firstIndex = 0;
                 let secondIndex = firstDigit(i)
                 let [a, b] = [firstIndex, secondIndex];
-                gridItem.addEventListener('click', () => {
-                    this.onCellClick([a, b]);
+                gridItem.addEventListener('click', (event) => {
+                    this.onCellClick([a, b], event);
                 });
             } else {
                 let firstIndex = firstDigit(i);
                 let secondIndex = lastDigit(i);
                 let [a, b] = [firstIndex, secondIndex];
-                gridItem.addEventListener('click', () => {
-                    this.onCellClick([a, b]);
+                gridItem.addEventListener('click', (event) => {
+                    this.onCellClick([a, b], event);
                 });
             }
         }
@@ -618,9 +620,9 @@ class GameBoard {
         }
     }
 
-    onCellClick(coordinates) {
+    onCellClick(coordinates, event) {
         console.log(coordinates);
-        let classNameOfGridItem = event.target.className; // is event.target.classname deprecated?
+        let classNameOfGridItem = event.target.className;
         this.receiveAttack(coordinates);
         this.updateBoard(classNameOfGridItem);
     }
