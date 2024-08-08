@@ -90,15 +90,15 @@ export class GameBoard {
                 let firstIndex = 0;
                 let secondIndex = firstDigit(i)
                 let [a, b] = [firstIndex, secondIndex];
-                gridItem.addEventListener('click', () => {
-                    this.onCellClick([a, b]);
+                gridItem.addEventListener('click', (event) => {
+                    this.onCellClick([a, b], event);
                 });
             } else {
                 let firstIndex = firstDigit(i);
                 let secondIndex = lastDigit(i);
                 let [a, b] = [firstIndex, secondIndex];
-                gridItem.addEventListener('click', () => {
-                    this.onCellClick([a, b]);
+                gridItem.addEventListener('click', (event) => {
+                    this.onCellClick([a, b], event);
                 });
             }
         }
@@ -122,19 +122,19 @@ export class GameBoard {
         }
     }
 
-    onCellClick(coordinates) {
+    onCellClick(coordinates, event) {
         console.log(coordinates);
-        let classNameOfGridItem = event.target.className; // is event.target.classname deprecated?
+        let classNameOfGridItem = event.target.className;
         this.receiveAttack(coordinates);
         this.updateBoard(classNameOfGridItem);
     }
 }
 
-function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
+export function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
     while (n >= 10) n /= 10;
     return Math.floor(n)
 }
 
-function lastDigit(n) { //use to get 2nd idex digit and convert to 2nd coordinate
+export function lastDigit(n) { //use to get 2nd idex digit and convert to 2nd coordinate
     return Math.floor(n % 10);
 }
