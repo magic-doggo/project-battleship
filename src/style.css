@@ -17,3 +17,8 @@
     box-sizing: border-box;
     border: 1px solid red;
 }
+
+.notYourTurn {
+    background-color: red;
+    pointer-events: none;
+}

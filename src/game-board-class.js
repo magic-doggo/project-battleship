@@ -12,7 +12,7 @@ export class GameBoard {
         this.missedCoordinates = [];
         this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
-    
+
     static isPlayer1Turn = true;
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
@@ -126,11 +126,26 @@ export class GameBoard {
         }
     }
 
-    onCellClick(coordinates, event) {
+    onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let classNameOfGridItem = event.target.className;
+        let currentlyHiddenCells = document.getElementsByClassName('notYourTurn');
+        let currentlyHiddenCells2 = document.querySelectorAll('.notYourTurn');
+        let classesOfGridItem = event.target.className.split(' ');
+        let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
-        this.updateBoard(classNameOfGridItem);
+        this.updateBoard(firstClassesOfGridItem);
+        let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
+        console.log(currentlyHiddenCells);
+        // for (let i = 0; i < currentlyHiddenCells.length; i++) {
+        //     currentlyHiddenCells[i].classList.remove('notYourTurn');
+        // };
+        currentlyHiddenCells2.forEach(cell => {
+            cell.classList.remove('notYourTurn');
+        })
+
+        for (let i = 0; i < cellsOnClickedBoard.length; i++) {
+            cellsOnClickedBoard[i].classList.toggle('notYourTurn');
+        };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
         } else {

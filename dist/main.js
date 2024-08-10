@@ -39,7 +39,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     width: 40px;
     box-sizing: border-box;
     border: 1px solid red;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}"],"sourceRoot":""}]);
+}
+
+.notYourTurn {
+    background-color: red;
+    pointer-events: none;
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,qBAAqB;IACrB,oBAAoB;AACxB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}\n\n.notYourTurn {\n    background-color: red;\n    pointer-events: none;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -510,7 +515,7 @@ class GameBoard {
         this.missedCoordinates = [];
         this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
-    
+
     static isPlayer1Turn = true;
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
@@ -624,11 +629,26 @@ class GameBoard {
         }
     }
 
-    onCellClick(coordinates, event) {
+    onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let classNameOfGridItem = event.target.className;
+        let currentlyHiddenCells = document.getElementsByClassName('notYourTurn');
+        let currentlyHiddenCells2 = document.querySelectorAll('.notYourTurn');
+        let classesOfGridItem = event.target.className.split(' ');
+        let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
-        this.updateBoard(classNameOfGridItem);
+        this.updateBoard(firstClassesOfGridItem);
+        let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
+        console.log(currentlyHiddenCells);
+        // for (let i = 0; i < currentlyHiddenCells.length; i++) {
+        //     currentlyHiddenCells[i].classList.remove('notYourTurn');
+        // };
+        currentlyHiddenCells2.forEach(cell => {
+            cell.classList.remove('notYourTurn');
+        })
+
+        for (let i = 0; i < cellsOnClickedBoard.length; i++) {
+            cellsOnClickedBoard[i].classList.toggle('notYourTurn');
+        };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
         } else {
