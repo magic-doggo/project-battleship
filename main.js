@@ -510,6 +510,8 @@ class GameBoard {
         this.missedCoordinates = [];
         this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
+    
+    static isPlayer1Turn = true;
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
     //try vertical always going down, horizontal always goes to the right
@@ -571,6 +573,8 @@ class GameBoard {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
+        //swap player turn?
+        return `Turn of `
     }
 
     checkIfAllShipsSunk() {
@@ -625,6 +629,12 @@ class GameBoard {
         let classNameOfGridItem = event.target.className;
         this.receiveAttack(coordinates);
         this.updateBoard(classNameOfGridItem);
+        if (GameBoard.isPlayer1Turn === true) {
+            GameBoard.isPlayer1Turn = false;
+        } else {
+            GameBoard.isPlayer1Turn = true;
+        }
+        console.log(GameBoard.isPlayer1Turn);
     }
 }
 
@@ -834,12 +844,21 @@ console.log(computerPlayer.playerBoard.boardArray);
 
 // humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
 // computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
-humanPlayer.playerBoard.receiveAttack([0,0]);
+// humanPlayer.playerBoard.receiveAttack([0,0]);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-//does clicking populate the array correctly? need to differentiate between boards, maybe player turns
+//maybe add form to allow player to place ship at coordinate?/
+//choose vertical - south or horizontal - going east 
+// make going south/east to be buttons/option to change them, unavailable first.
+//based on ship length if they want ship to go other direction, could calculate and reuse existing placeship
 
+//next:
+// make players take turns
+//make pc make random plays
+//hide ship positions?
+
+// console.log(GameBoard);
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
