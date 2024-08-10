@@ -12,6 +12,8 @@ export class GameBoard {
         this.missedCoordinates = [];
         this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
     }
+    
+    static isPlayer1Turn = true;
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
     //try vertical always going down, horizontal always goes to the right
@@ -73,6 +75,8 @@ export class GameBoard {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
+        //swap player turn?
+        return `Turn of `
     }
 
     checkIfAllShipsSunk() {
@@ -127,6 +131,12 @@ export class GameBoard {
         let classNameOfGridItem = event.target.className;
         this.receiveAttack(coordinates);
         this.updateBoard(classNameOfGridItem);
+        if (GameBoard.isPlayer1Turn === true) {
+            GameBoard.isPlayer1Turn = false;
+        } else {
+            GameBoard.isPlayer1Turn = true;
+        }
+        console.log(GameBoard.isPlayer1Turn);
     }
 }
 
