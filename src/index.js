@@ -57,4 +57,12 @@ computerPlayer.playerBoard.updateBoard("computerGridItem");
 //make pc make random plays
 //hide ship positions?
 
-// console.log(GameBoard);
+
+//can add function for start game/button
+function startGame() {
+    let playerCells = document.getElementsByClassName('humanGridItem');
+    for (let i = 0; i < playerCells.length; i++) {
+        playerCells[i].classList.add('yourTurn');
+    }
+}
+startGame();

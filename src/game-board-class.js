@@ -84,11 +84,10 @@ export class GameBoard {
         return true;
     }
 
-    renderBoard(boardContainer, specificPlayerGridClass) {//no longer using generalgridclass?
+    renderBoard(boardContainer, specificPlayerGridClass) {
         for (let i = 0; i < this.boardArray.length; i++) {
             let gridItem = document.createElement('div');
             boardContainer.appendChild(gridItem);
-            // gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
             if (i < 10) {
                 let firstIndex = 0;
@@ -128,17 +127,17 @@ export class GameBoard {
 
     onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let currentlyHiddenCells = document.querySelectorAll('.notYourTurn');
+        let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let classesOfGridItem = event.target.className.split(' ');
         let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
         this.updateBoard(firstClassesOfGridItem);
         let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
         currentlyHiddenCells.forEach(cell => {
-            cell.classList.remove('notYourTurn');
+            cell.classList.remove('yourTurn');
         })
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
-            cellsOnClickedBoard[i].classList.toggle('notYourTurn');
+            cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
