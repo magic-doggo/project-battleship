@@ -41,7 +41,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     border: 2px solid red;
 }
 
-.notYourTurn {
+.yourTurn {
     background-color: gray;
     pointer-events: none;
     border: 1px solid black;
@@ -59,7 +59,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 
 #player-turn {
     font-weight: bolder;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.notYourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -602,11 +602,10 @@ class GameBoard {
         return true;
     }
 
-    renderBoard(boardContainer, specificPlayerGridClass) {//no longer using generalgridclass?
+    renderBoard(boardContainer, specificPlayerGridClass) {
         for (let i = 0; i < this.boardArray.length; i++) {
             let gridItem = document.createElement('div');
             boardContainer.appendChild(gridItem);
-            // gridItem.classList.add(generalGridClass);
             gridItem.classList.add(specificPlayerGridClass);
             if (i < 10) {
                 let firstIndex = 0;
@@ -646,29 +645,29 @@ class GameBoard {
 
     onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let currentlyHiddenCells = document.querySelectorAll('.notYourTurn');
+        let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let classesOfGridItem = event.target.className.split(' ');
         let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
         this.updateBoard(firstClassesOfGridItem);
         let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
         currentlyHiddenCells.forEach(cell => {
-            cell.classList.remove('notYourTurn');
+            cell.classList.remove('yourTurn');
         })
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
-            cellsOnClickedBoard[i].classList.toggle('notYourTurn');
+            cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
             //Only works if player starts first, may need rework after implementing pc ai
             //or start with player board toggled off
+            //maybe add these turn switches to their own method
             document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
             document.getElementById('player-turn').style.visibility = 'visible';
         }
         console.log(GameBoard.isPlayer1Turn);
-
     }
 }
 
@@ -892,7 +891,15 @@ computerPlayer.playerBoard.updateBoard("computerGridItem");
 //make pc make random plays
 //hide ship positions?
 
-// console.log(GameBoard);
+
+//can add function for start game/button
+function startGame() {
+    let playerCells = document.getElementsByClassName('humanGridItem');
+    for (let i = 0; i < playerCells.length; i++) {
+        playerCells[i].classList.add('yourTurn');
+    }
+}
+startGame();
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
