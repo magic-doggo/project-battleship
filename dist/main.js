@@ -38,13 +38,28 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     height: 40px;
     width: 40px;
     box-sizing: border-box;
-    border: 1px solid red;
+    border: 2px solid red;
 }
 
 .notYourTurn {
-    background-color: red;
+    background-color: gray;
     pointer-events: none;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,qBAAqB;IACrB,oBAAoB;AACxB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 1px solid red;\n}\n\n.notYourTurn {\n    background-color: red;\n    pointer-events: none;\n}"],"sourceRoot":""}]);
+    border: 1px solid black;
+    color: wheat;
+}
+
+#human-board,
+#computer-board {
+    margin: 10px 0;
+}
+
+.board-title {
+    margin: 10px 0;
+}
+
+#player-turn {
+    font-weight: bolder;
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.notYourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -631,30 +646,29 @@ class GameBoard {
 
     onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let currentlyHiddenCells = document.getElementsByClassName('notYourTurn');
-        let currentlyHiddenCells2 = document.querySelectorAll('.notYourTurn');
+        let currentlyHiddenCells = document.querySelectorAll('.notYourTurn');
         let classesOfGridItem = event.target.className.split(' ');
         let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
         this.updateBoard(firstClassesOfGridItem);
         let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
-        console.log(currentlyHiddenCells);
-        // for (let i = 0; i < currentlyHiddenCells.length; i++) {
-        //     currentlyHiddenCells[i].classList.remove('notYourTurn');
-        // };
-        currentlyHiddenCells2.forEach(cell => {
+        currentlyHiddenCells.forEach(cell => {
             cell.classList.remove('notYourTurn');
         })
-
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
             cellsOnClickedBoard[i].classList.toggle('notYourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
+            //Only works if player starts first, may need rework after implementing pc ai
+            //or start with player board toggled off
+            document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
+            document.getElementById('player-turn').style.visibility = 'visible';
         }
         console.log(GameBoard.isPlayer1Turn);
+
     }
 }
 

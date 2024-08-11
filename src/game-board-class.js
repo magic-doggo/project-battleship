@@ -128,28 +128,27 @@ export class GameBoard {
 
     onCellClick(coordinates, event) { //rename this maybe?
         console.log(coordinates);
-        let currentlyHiddenCells = document.getElementsByClassName('notYourTurn');
-        let currentlyHiddenCells2 = document.querySelectorAll('.notYourTurn');
+        let currentlyHiddenCells = document.querySelectorAll('.notYourTurn');
         let classesOfGridItem = event.target.className.split(' ');
         let firstClassesOfGridItem = classesOfGridItem[0];
         this.receiveAttack(coordinates);
         this.updateBoard(firstClassesOfGridItem);
         let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
-        console.log(currentlyHiddenCells);
-        // for (let i = 0; i < currentlyHiddenCells.length; i++) {
-        //     currentlyHiddenCells[i].classList.remove('notYourTurn');
-        // };
-        currentlyHiddenCells2.forEach(cell => {
+        currentlyHiddenCells.forEach(cell => {
             cell.classList.remove('notYourTurn');
         })
-
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
             cellsOnClickedBoard[i].classList.toggle('notYourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
+            //Only works if player starts first, may need rework after implementing pc ai
+            //or start with player board toggled off
+            //maybe add these turn switches to their own method
+            document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
+            document.getElementById('player-turn').style.visibility = 'visible';
         }
         console.log(GameBoard.isPlayer1Turn);
     }

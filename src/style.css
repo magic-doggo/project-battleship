@@ -15,10 +15,25 @@
     height: 40px;
     width: 40px;
     box-sizing: border-box;
-    border: 1px solid red;
+    border: 2px solid red;
 }
 
 .notYourTurn {
-    background-color: red;
+    background-color: gray;
     pointer-events: none;
+    border: 1px solid black;
+    color: wheat;
+}
+
+#human-board,
+#computer-board {
+    margin: 10px 0;
+}
+
+.board-title {
+    margin: 10px 0;
+}
+
+#player-turn {
+    font-weight: bolder;
 }
