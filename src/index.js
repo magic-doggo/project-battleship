@@ -66,3 +66,9 @@ function startGame() {
     }
 }
 startGame();
+
+
+
+humanPlayer.playerBoard.computerAttack([3,3]);
+
+console.log(humanPlayer.playerBoard)
