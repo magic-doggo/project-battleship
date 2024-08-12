@@ -526,9 +526,10 @@ class GameBoard {
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
         // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
-        this.hitCoordinates = []; //no functionality relies on this yet
-        this.missedCoordinates = [];
-        this.arrayOfPlacedShipObjects = []; //no functionality relies on this yet
+        // this.hitCoordinates = []; //no functionality relies on this yet
+        // this.missedCoordinates = []; //no functionality relies on this yet
+        this.notShotCoordinates = this.createIndexArray(99); //creates array with val from 0 to 99
+        this.arrayOfPlacedShipObjects = []; 
     }
 
     static isPlayer1Turn = true;
@@ -576,7 +577,10 @@ class GameBoard {
         let attackedArrayCoords = (coordinates[0] * 10) + coordinates[1];
         if (this.boardArray[attackedArrayCoords] == 1) {
             this.boardArray[attackedArrayCoords] = "x"; //place x on board if ship is hit
-            this.hitCoordinates.push(attackedArrayCoords);
+            // this.hitCoordinates.push(attackedArrayCoords);
+            let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
+            this.notShotCoordinates.splice(index, 1);
+
             for (let ship of this.arrayOfPlacedShipObjects) {
                 for (let coordinate of ship.coordinates) {
                     if (coordinate === attackedArrayCoords) {
@@ -587,13 +591,16 @@ class GameBoard {
 
         } else if (this.boardArray[attackedArrayCoords] == undefined) {
             this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
-            this.missedCoordinates.push(attackedArrayCoords);
+            // this.missedCoordinates.push(attackedArrayCoords);
+            let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
+            this.notShotCoordinates.splice(index, 1);
         }
         else if (this.boardArray[attackedArrayCoords] == "x" || this.boardArray[attackedArrayCoords] == 0) {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
-        //swap player turn?
+        //swap player turn? edit later 100
+        console.log(this.notShotCoordinates);
         return `Turn of `
     }
 
@@ -643,7 +650,7 @@ class GameBoard {
         }
     }
 
-    onCellClick(coordinates, event) { //rename this maybe?
+    onCellClick(coordinates, event) {
         console.log(coordinates);
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let classesOfGridItem = event.target.className.split(' ');
@@ -653,21 +660,51 @@ class GameBoard {
         let cellsOnClickedBoard = document.getElementsByClassName(firstClassesOfGridItem);
         currentlyHiddenCells.forEach(cell => {
             cell.classList.remove('yourTurn');
-        })
+        });
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
             cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
-            //Only works if player starts first, may need rework after implementing pc ai
-            //or start with player board toggled off
-            //maybe add these turn switches to their own method
             document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
             document.getElementById('player-turn').style.visibility = 'visible';
         }
-        console.log(GameBoard.isPlayer1Turn);
+        // console.log(GameBoard.isPlayer1Turn);
+    }
+
+    computerAttack(coordinates) { //only relevant when playing against pc
+        this.receiveAttack(coordinates); 
+        this.updateBoard('humanGridItem');
+
+        //selects computer cells
+        let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
+        //selects human player cells
+        let humanPlayerCells = document.getElementsByClassName('humanGridItem');
+        //makes computer cells interactive (useful after pc turn ends)
+        currentlyHiddenCells.forEach(cell => {
+            cell.classList.remove('yourTurn');
+        });
+        //makes human player cells unintaractive (since after pc shoots, human will need to shoot only pc board)
+        for (let i = 0; i < humanPlayerCells.length; i++) {
+            humanPlayerCells[i].classList.toggle('yourTurn');
+        };
+        if (GameBoard.isPlayer1Turn === true) {
+            GameBoard.isPlayer1Turn = false;
+            document.getElementById('player-turn').style.visibility = 'hidden';
+        } else {
+            GameBoard.isPlayer1Turn = true;
+            document.getElementById('player-turn').style.visibility = 'visible';
+        }
+    }
+
+    createIndexArray(n) {   
+        let newArr = [];
+        for (let i = 0; i <= n; i++) {
+            newArr.push(i);
+        } 
+        return newArr;  
     }
 }
 
@@ -900,6 +937,13 @@ function startGame() {
     }
 }
 startGame();
+
+
+
+humanPlayer.playerBoard.computerAttack([3,3]);
+
+console.log(humanPlayer.playerBoard)
+
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
