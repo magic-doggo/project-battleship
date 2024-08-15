@@ -116,11 +116,7 @@ export class GameBoard {
 
     updateBoard(specificPlayerGridClass) { //maybe do not need player specific class param, since method is ran on 1 player board anyway
         let childDivs = document.getElementsByClassName(specificPlayerGridClass);
-        //clear the board visually
-        for (let i = 0; i < this.boardArray.length; i++) {
-            childDivs[i].innerText = "";
-        }
-        //repopulate the board visually with new location of ships and hits
+        //Update the board visually with current location of ships/hits/nothings
         for (let i = 0; i < this.boardArray.length; i++) {
             if (this.boardArray[i] == 1) {
                 childDivs[i].innerText = 'ship';
@@ -128,7 +124,7 @@ export class GameBoard {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
-            }
+            } else childDivs[i].innerText = "";
         }
     }
 
