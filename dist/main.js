@@ -529,10 +529,12 @@ class GameBoard {
         // this.hitCoordinates = []; //no functionality relies on this yet
         // this.missedCoordinates = []; //no functionality relies on this yet
         this.notShotCoordinates = this.createIndexArray(99); //creates array with val from 0 to 99
-        this.arrayOfPlacedShipObjects = []; 
+        this.arrayOfPlacedShipObjects = [];
+        GameBoard.gameBoardClassInstances.push(this);
     }
 
     static isPlayer1Turn = true;
+    static gameBoardClassInstances = [];
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
     //try vertical always going down, horizontal always goes to the right
@@ -600,7 +602,6 @@ class GameBoard {
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
         //swap player turn? edit later 100
-        console.log(this.notShotCoordinates);
         return `Turn of `
     }
 
@@ -646,8 +647,7 @@ class GameBoard {
         }
     }
 
-    onCellClick(coordinates, event) {
-        console.log(coordinates);
+    onCellClick(coordinates, event) {//move dom changes to updateBoard method later?
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let classesOfGridItem = event.target.className.split(' ');
         let firstClassesOfGridItem = classesOfGridItem[0];
@@ -667,24 +667,96 @@ class GameBoard {
             GameBoard.isPlayer1Turn = true;
             document.getElementById('player-turn').style.visibility = 'visible';
         }
-        // console.log(GameBoard.isPlayer1Turn);
+        GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)
     }
 
-    computerAttack(coordinates) { //only relevant when playing against pc
-        this.receiveAttack(coordinates); 
-        this.updateBoard('humanGridItem');
+    // computerAttack(coordinates) { //only relevant when playing against pc
+    //     this.receiveAttack(coordinates);
+    //     this.updateBoard('humanGridItem');
 
-        //selects computer cells
+    //     //selects computer cells
+    //     let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
+    //     //selects human player cells
+    //     let humanPlayerCells = document.getElementsByClassName('humanGridItem');
+    //     //makes computer cells interactive (useful after pc turn ends)
+    //     currentlyHiddenCells.forEach(cell => {
+    //         cell.classList.remove('yourTurn');
+    //     });
+    //     //makes human player cells unintaractive (since after pc shoots, human will need to shoot only pc board)
+    //     for (let i = 0; i < humanPlayerCells.length; i++) {
+    //         humanPlayerCells[i].classList.toggle('yourTurn');
+    //     };
+    //     if (GameBoard.isPlayer1Turn === true) {
+    //         GameBoard.isPlayer1Turn = false;
+    //         document.getElementById('player-turn').style.visibility = 'hidden';
+    //     } else {
+    //         GameBoard.isPlayer1Turn = true;
+    //         document.getElementById('player-turn').style.visibility = 'visible';
+    //     }
+    // }
+
+    createIndexArray(n) {
+        let newArr = [];
+        for (let i = 0; i <= n; i++) {
+            newArr.push(i);
+        }
+        return newArr;
+    }
+
+    receiveAttackFromPc(randomCoordFunction) {
+        //is storing logs to a different class instance in each class instance cheating? GameBoard.gameBoardClassInstances[0]
+        //since we only interact with pc board via dom, pc GameBoard instance can through this interact with player GameBoard instance
+        let coordinates = randomCoordFunction();
+        if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 1) {
+            GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = "x"; //place x on board if ship is hit
+            // GameBoard.gameBoardClassInstances[0].hitCoordinates.push(coordinates);
+            let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
+            GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
+            for (let ship of GameBoard.gameBoardClassInstances[0].arrayOfPlacedShipObjects) {
+                for (let coordinate of ship.coordinates) {
+                    if (coordinate === coordinates) {
+                        ship.shipInstance.hit();
+                    }
+                }
+            }
+        } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == undefined) {
+            GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = 0; //place 0 on board if attack missed
+            // GameBoard.gameBoardClassInstances[0].missedCoordinates.push(coordinates);
+            let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
+            GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
+        } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == "x" || GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 0) {
+            throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
+        } else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
+        GameBoard.gameBoardClassInstances[0].updatePlayerBoardAfterPcAttack('humanGridItem');
+    }
+
+    getRadomNotShotPlayerBoardCoordinate() {
+        return GameBoard.gameBoardClassInstances[0].notShotCoordinates[(Math.floor(Math.random() * GameBoard.gameBoardClassInstances[0].notShotCoordinates.length))]
+    }
+
+    updatePlayerBoardAfterPcAttack(specificPlayerGridClass) { //I could just use updatePlayerBoard and stop using "this."? Alternate player boards based on isPlayer1Turn?
+        let childDivs = document.getElementsByClassName(specificPlayerGridClass);
+        //Update the board visually with current location of ships/hits/nothings
+        for (let i = 0; i < GameBoard.gameBoardClassInstances[0].boardArray.length; i++) {
+            if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 1) {
+                childDivs[i].innerText = 'ship';
+            } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 'x') {
+                childDivs[i].innerText = 'hit';
+            } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 0) {
+                childDivs[i].innerText = 'miss';
+            } else childDivs[i].innerText = "";
+        }
+
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
-        //selects human player cells
-        let humanPlayerCells = document.getElementsByClassName('humanGridItem');
-        //makes computer cells interactive (useful after pc turn ends)
+        // let classesOfGridItem = event.target.className.split(' ');
+        // let firstClassesOfGridItem = classesOfGridItem[0];
+
+        let cellsOnClickedBoard = document.getElementsByClassName(specificPlayerGridClass);
         currentlyHiddenCells.forEach(cell => {
             cell.classList.remove('yourTurn');
         });
-        //makes human player cells unintaractive (since after pc shoots, human will need to shoot only pc board)
-        for (let i = 0; i < humanPlayerCells.length; i++) {
-            humanPlayerCells[i].classList.toggle('yourTurn');
+        for (let i = 0; i < cellsOnClickedBoard.length; i++) {
+            cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
@@ -693,14 +765,6 @@ class GameBoard {
             GameBoard.isPlayer1Turn = true;
             document.getElementById('player-turn').style.visibility = 'visible';
         }
-    }
-
-    createIndexArray(n) {   
-        let newArr = [];
-        for (let i = 0; i <= n; i++) {
-            newArr.push(i);
-        } 
-        return newArr;  
     }
 }
 
@@ -936,10 +1000,26 @@ startGame();
 
 
 
-humanPlayer.playerBoard.computerAttack([3,3]);
+// humanPlayer.playerBoard.computerAttack([3,3]);
 
 console.log(humanPlayer.playerBoard)
 
+
+//either modify receiveAttack to support gameboard instance index
+//or make new receiveAttackFromPc which uses gameboard instance index
+
+//if I want to reuse OnCellClick, need to fake a click event
+//perhaps it can be triggered at end of receiveAttack
+//oncellclick also uses this. maybe do not use click events for pc
+//after player picks pc cell, pc just picks random cell from player
+//and runs special receiveattackfrompcautomatic
+//fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
+
+// console.log(humanPlayer.playerBoard.getRadomNotShotPlayerBoardCoordinate())
+
+
+
+//WHY PLAYER BOARD NOTSHOTCOORDS NOT UPDATING
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map

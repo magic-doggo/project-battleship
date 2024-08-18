@@ -69,6 +69,23 @@ startGame();
 
 
 
-humanPlayer.playerBoard.computerAttack([3,3]);
+// humanPlayer.playerBoard.computerAttack([3,3]);
 
 console.log(humanPlayer.playerBoard)
+
+
+//either modify receiveAttack to support gameboard instance index
+//or make new receiveAttackFromPc which uses gameboard instance index
+
+//if I want to reuse OnCellClick, need to fake a click event
+//perhaps it can be triggered at end of receiveAttack
+//oncellclick also uses this. maybe do not use click events for pc
+//after player picks pc cell, pc just picks random cell from player
+//and runs special receiveattackfrompcautomatic
+//fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
+
+// console.log(humanPlayer.playerBoard.getRadomNotShotPlayerBoardCoordinate())
+
+
+
+//WHY PLAYER BOARD NOTSHOTCOORDS NOT UPDATING
