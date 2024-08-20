@@ -38,34 +38,18 @@ computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 // }
 // placeShips();
 
-console.log(humanPlayer.playerBoard.boardArray);
-console.log(computerPlayer.playerBoard.boardArray);
-
-// humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-// computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
-// humanPlayer.playerBoard.receiveAttack([0,0]);
-// humanPlayer.playerBoard.updateBoard("humanGridItem");
-// computerPlayer.playerBoard.updateBoard("computerGridItem");
-
 //maybe add form to allow player to place ship at coordinate?/
 //choose vertical - south or horizontal - going east 
 // make going south/east to be buttons/option to change them, unavailable first.
 //based on ship length if they want ship to go other direction, could calculate and reuse existing placeship
 
-//next:
-// make players take turns
-//make pc make random plays
-//hide ship positions?
-
-
-//can add function for start game/button
 function startGame() {
     let playerCells = document.getElementsByClassName('humanGridItem');
     for (let i = 0; i < playerCells.length; i++) {
         playerCells[i].classList.add('yourTurn');
     }
 }
-// startGame();
+startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
@@ -104,3 +88,4 @@ placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 
+//do I want player/computer to shoot again if they landed a hit?

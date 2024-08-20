@@ -144,12 +144,14 @@ export class GameBoard {
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
         //swap player turn? edit later 100
-        return `Turn of `
+        // if (this.checkIfAllShipsSunk()) document.getElementById('winner').innerText = 'Player Won';
+        // return `Turn of `
     }
 
     checkIfAllShipsSunk() {
-        if (this.boardArray.includes(1)) return false;
-        return true;
+        if (!GameBoard.gameBoardClassInstances[0].boardArray.includes(1)) return true;
+        else if (!GameBoard.gameBoardClassInstances[1].boardArray.includes(1)) return true;
+        return false;
     }
 
     renderBoard(boardContainer, specificPlayerGridClass) {
@@ -211,7 +213,12 @@ export class GameBoard {
             GameBoard.isPlayer1Turn = true;
             document.getElementById('player-turn').style.visibility = 'visible';
         }
-        GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)
+        if (this.checkIfAllShipsSunk()) {
+            document.getElementById('winner').innerText = 'Player 1 Won';
+            document.getElementById('boards-container').classList.add('yourTurn');
+        }
+        else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)
+        
     }
 
     // computerAttack(coordinates) { //only relevant when playing against pc
@@ -272,6 +279,11 @@ export class GameBoard {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         } else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
         GameBoard.gameBoardClassInstances[0].updatePlayerBoardAfterPcAttack('humanGridItem');
+        if (this.checkIfAllShipsSunk()) {
+            document.getElementById('winner').innerText = 'Computer Won';
+            document.getElementById('boards-container').classList.add('yourTurn');
+            document.getElementById('player-turn').style.visibility = 'hidden';
+        }
     }
 
     getRadomNotShotPlayerBoardCoordinate() {
@@ -290,11 +302,7 @@ export class GameBoard {
                 childDivs[i].innerText = 'miss';
             } else childDivs[i].innerText = "";
         }
-
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
-        // let classesOfGridItem = event.target.className.split(' ');
-        // let firstClassesOfGridItem = classesOfGridItem[0];
-
         let cellsOnClickedBoard = document.getElementsByClassName(specificPlayerGridClass);
         currentlyHiddenCells.forEach(cell => {
             cell.classList.remove('yourTurn');
