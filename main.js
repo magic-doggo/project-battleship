@@ -538,13 +538,71 @@ class GameBoard {
 
     // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
     //try vertical always going down, horizontal always goes to the right
+    // placeShipOLd(ship, coordinates, direction) {
+    //     let arrayCoords = coordinates;
+    //     if (typeof coordinates == 'object') {
+    //         arrayCoords = (coordinates[0] * 10) + coordinates[1];
+    //     }
+    //     console.log(arrayCoords);
+    //     let tempArray = [];
+    //     let tempShipObject = {};
+    //     for (let i = 0; i < ship.length; i++) {
+    //         if (direction == "vertical") {
+    //             if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
+    //             //increase by 10 when row changes (vertical changes)
+    //             if (this.boardArray[arrayCoords] != undefined) {
+    //                 tempArray = [];
+    //                 throw new Error(`ship overlaps vertically with another at index ${arrayCoords}`);
+    //             }
+    //             tempArray.push(arrayCoords);
+    //             arrayCoords += 10;
+    //             if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
+    //         } else if (direction == "horizontal") {
+    //             if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+    //             if (this.boardArray[arrayCoords] != undefined) {
+    //                 tempArray = [];
+    //                 throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
+    //             };
+    //             //increase by 1 when column changes (horizontal changes)
+    //             tempArray.push(arrayCoords, ' arraycoords horiz');
+    //             arrayCoords += 1;
+    //             if (arrayCoords >= 100) console.log(arrayCoords);
+    //         }
+    //     }
+    //     // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
+
+    //     tempShipObject.coordinates = tempArray;
+    //     tempShipObject.shipInstance = ship;
+    //     this.arrayOfPlacedShipObjects.push(tempShipObject);
+
+    //     for (let coordinate of tempArray) {
+    //         this.boardArray[coordinate] = 1;
+    //     }
+    //     console.log(this);
+    //     console.log(tempArray , " temparray");
+    //     return tempArray;
+    // }
+
     placeShip(ship, coordinates, direction) {
-        let arrayCoords = (coordinates[0] * 10) + coordinates[1];
+        let arrayCoords = coordinates;
+        if (typeof coordinates == 'object') {
+            arrayCoords = (coordinates[0] * 10) + coordinates[1];
+        }
         let tempArray = [];
         let tempShipObject = {};
+        let commaCoordinates;
+        if (arrayCoords < 10) {
+            let firstIndex = 0;
+            let secondIndex = firstDigit(arrayCoords)
+            commaCoordinates = [firstIndex, secondIndex];
+        } else {
+            let firstIndex = firstDigit(i);
+            let secondIndex = lastDigit(i);
+            commaCoordinates = [firstIndex, secondIndex];
+        };
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
-                if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
+                if (commaCoordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
@@ -552,20 +610,22 @@ class GameBoard {
                 }
                 tempArray.push(arrayCoords);
                 arrayCoords += 10;
+                if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
             } else if (direction == "horizontal") {
-                if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+                if (commaCoordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
                     throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
                 };
                 //increase by 1 when column changes (horizontal changes)
-                tempArray.push(arrayCoords);
+                tempArray.push(arrayCoords, ' arraycoords horiz');
                 arrayCoords += 1;
+                if (arrayCoords >= 100) console.log(arrayCoords);
             }
         }
         // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
 
-        tempShipObject.coordinates = tempArray;
+        tempShipObject.commaCoordinates = tempArray;
         tempShipObject.shipInstance = ship;
         this.arrayOfPlacedShipObjects.push(tempShipObject);
 
@@ -643,7 +703,9 @@ class GameBoard {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
-            } else childDivs[i].innerText = "";
+            } else {
+                childDivs[i].innerText = "";
+            }
         }
     }
 
@@ -954,20 +1016,20 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-function placeShips() {
-    humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
-    humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
-    humanPlayer.playerBoard.placeShip(playerCruiser, [0,2], 'vertical');
-    humanPlayer.playerBoard.placeShip(playerBattleship, [0,3], 'vertical');
-    humanPlayer.playerBoard.placeShip(playerCarrier, [0,4], 'vertical');
+// function placeShips() {
+//     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
+//     humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
+//     humanPlayer.playerBoard.placeShip(playerCruiser, [0,2], 'vertical');
+//     humanPlayer.playerBoard.placeShip(playerBattleship, [0,3], 'vertical');
+//     humanPlayer.playerBoard.placeShip(playerCarrier, [0,4], 'vertical');
 
-    computerPlayer.playerBoard.placeShip(computerDestroyer, [5,0], 'horizontal');
-    computerPlayer.playerBoard.placeShip(computerSubmarine, [6,0], 'horizontal');
-    computerPlayer.playerBoard.placeShip(computerCruiser, [7,0], 'horizontal');
-    computerPlayer.playerBoard.placeShip(computerBattleship, [8,0], 'horizontal');
-    computerPlayer.playerBoard.placeShip(computerCarrier, [9,0], 'horizontal');
-}
-placeShips();
+//     computerPlayer.playerBoard.placeShip(computerDestroyer, [5,0], 'horizontal');
+//     computerPlayer.playerBoard.placeShip(computerSubmarine, [6,0], 'horizontal');
+//     computerPlayer.playerBoard.placeShip(computerCruiser, [7,0], 'horizontal');
+//     computerPlayer.playerBoard.placeShip(computerBattleship, [8,0], 'horizontal');
+//     computerPlayer.playerBoard.placeShip(computerCarrier, [9,0], 'horizontal');
+// }
+// placeShips();
 
 console.log(humanPlayer.playerBoard.boardArray);
 console.log(computerPlayer.playerBoard.boardArray);
@@ -975,8 +1037,8 @@ console.log(computerPlayer.playerBoard.boardArray);
 // humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
 // computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
 // humanPlayer.playerBoard.receiveAttack([0,0]);
-humanPlayer.playerBoard.updateBoard("humanGridItem");
-computerPlayer.playerBoard.updateBoard("computerGridItem");
+// humanPlayer.playerBoard.updateBoard("humanGridItem");
+// computerPlayer.playerBoard.updateBoard("computerGridItem");
 
 //maybe add form to allow player to place ship at coordinate?/
 //choose vertical - south or horizontal - going east 
@@ -996,30 +1058,46 @@ function startGame() {
         playerCells[i].classList.add('yourTurn');
     }
 }
-startGame();
-
-
-
-// humanPlayer.playerBoard.computerAttack([3,3]);
-
-console.log(humanPlayer.playerBoard)
-
-
-//either modify receiveAttack to support gameboard instance index
-//or make new receiveAttackFromPc which uses gameboard instance index
-
-//if I want to reuse OnCellClick, need to fake a click event
-//perhaps it can be triggered at end of receiveAttack
-//oncellclick also uses this. maybe do not use click events for pc
-//after player picks pc cell, pc just picks random cell from player
-//and runs special receiveattackfrompcautomatic
+// startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
-// console.log(humanPlayer.playerBoard.getRadomNotShotPlayerBoardCoordinate())
+let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
+let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
+// console.log(arrayOfPlayerShips);
 
+function placeShipsRandomly(arrayOfShips, player) {
+    let shallowCopy = [...arrayOfShips];
+    let coordArray = player.playerBoard.createIndexArray(99);
+    for (let i = shallowCopy.length; i > 0; i--) {
+        let currentShip = shallowCopy.pop();
+        let coordinates = Math.floor(Math.random() * coordArray.length);
+        let test = [];
+        while (test[0] == undefined) {
+            coordinates = Math.floor(Math.random() * coordArray.length);
+            // console.log(coordinates);
+            try {
+                test = player.playerBoard.placeShip(currentShip, coordinates, "vertical");    
+            } catch (error) {
+                // coordinates = Math.floor(Math.random() * coordArray.length);
+            }
 
-//WHY PLAYER BOARD NOTSHOTCOORDS NOT UPDATING
+        }
+    }
+}
+
+placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+humanPlayer.playerBoard.updateBoard("humanGridItem");
+computerPlayer.playerBoard.updateBoard("computerGridItem");
+
+//google try catch without catch
+console.log(computerPlayer.playerBoard.boardArray);
+console.log(humanPlayer.playerBoard.boardArray);
+//something increases my boardarray past 100, probably in placeship?
+
+//fix this
+//if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically')
+//make it not run every iteration, also make it check arraycoords. if arraycoords > 10 etc
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
