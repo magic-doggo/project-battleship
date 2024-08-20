@@ -86,6 +86,7 @@ function placeShipsRandomly(arrayOfShips, player) {
             try {
                 test = player.playerBoard.placeShip(currentShip, coordinates, "vertical");    
             } catch (error) {
+                console.log('asd')
                 // coordinates = Math.floor(Math.random() * coordArray.length);
             }
 
@@ -105,3 +106,4 @@ console.log(humanPlayer.playerBoard.boardArray);
 //fix this
 //if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically')
 //make it not run every iteration, also make it check arraycoords. if arraycoords > 10 etc
+console.log(humanPlayer.playerBoard)
