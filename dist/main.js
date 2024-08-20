@@ -596,8 +596,8 @@ class GameBoard {
             let secondIndex = firstDigit(arrayCoords)
             coordinatesAsArrayValues = [firstIndex, secondIndex];
         } else {
-            let firstIndex = firstDigit(i);
-            let secondIndex = lastDigit(i);
+            let firstIndex = firstDigit(arrayCoords);
+            let secondIndex = lastDigit(arrayCoords);
             coordinatesAsArrayValues = [firstIndex, secondIndex];
         };
         for (let i = 0; i < ship.length; i++) {
@@ -644,7 +644,7 @@ class GameBoard {
             this.notShotCoordinates.splice(index, 1);
 
             for (let ship of this.arrayOfPlacedShipObjects) {
-                for (let coordinate of ship.coordinates) {
+                for (let coordinate of ship.coordinatesAsArrayValues) {
                     if (coordinate === attackedArrayCoords) {
                         ship.shipInstance.hit();
                     }
@@ -1064,9 +1064,12 @@ function startGame() {
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-// console.log(arrayOfPlayerShips);
+let shipDirections = ['vertical', 'horizontal'];
+function getRandomShipDirection() {
+    return shipDirections[Math.floor(Math.random() * shipDirections.length)];
+}
 
-function placeShipsRandomly(arrayOfShips, player) {
+function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of" arrayOfShips?
     let shallowCopy = [...arrayOfShips];
     let coordArray = player.playerBoard.createIndexArray(99);
     for (let i = shallowCopy.length; i > 0; i--) {
@@ -1077,10 +1080,12 @@ function placeShipsRandomly(arrayOfShips, player) {
             coordinates = Math.floor(Math.random() * coordArray.length);
             // console.log(coordinates);
             try {
-                test = player.playerBoard.placeShip(currentShip, coordinates, "vertical");    
+                test = player.playerBoard.placeShip(currentShip, coordinates, getRandomShipDirection());    
             } catch (error) {
-                console.log('asd')
-                // coordinates = Math.floor(Math.random() * coordArray.length);
+                //lazy way to find valid spots for all ships, it just runs placeShip until it finds a valid spot
+                //later can split placeShip into 2 methods, one method would just find valid spots?
+                //not big deal now, roughly 5-10 failed attempts total to place ships for both players
+                console.log(coordinates);
             }
 
         }
@@ -1088,18 +1093,11 @@ function placeShipsRandomly(arrayOfShips, player) {
 }
 
 placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-//google try catch without catch
-console.log(computerPlayer.playerBoard.boardArray);
-console.log(humanPlayer.playerBoard.boardArray);
-//something increases my boardarray past 100, probably in placeship?
 
-//fix this
-//if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically')
-//make it not run every iteration, also make it check arraycoords. if arraycoords > 10 etc
-console.log(humanPlayer.playerBoard)
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map

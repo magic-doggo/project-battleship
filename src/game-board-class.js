@@ -78,8 +78,8 @@ export class GameBoard {
             let secondIndex = firstDigit(arrayCoords)
             coordinatesAsArrayValues = [firstIndex, secondIndex];
         } else {
-            let firstIndex = firstDigit(i);
-            let secondIndex = lastDigit(i);
+            let firstIndex = firstDigit(arrayCoords);
+            let secondIndex = lastDigit(arrayCoords);
             coordinatesAsArrayValues = [firstIndex, secondIndex];
         };
         for (let i = 0; i < ship.length; i++) {
@@ -126,7 +126,7 @@ export class GameBoard {
             this.notShotCoordinates.splice(index, 1);
 
             for (let ship of this.arrayOfPlacedShipObjects) {
-                for (let coordinate of ship.coordinates) {
+                for (let coordinate of ship.coordinatesAsArrayValues) {
                     if (coordinate === attackedArrayCoords) {
                         ship.shipInstance.hit();
                     }
