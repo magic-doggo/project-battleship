@@ -590,19 +590,19 @@ class GameBoard {
         }
         let tempArray = [];
         let tempShipObject = {};
-        let commaCoordinates;
+        let coordinatesAsArrayValues;
         if (arrayCoords < 10) {
             let firstIndex = 0;
             let secondIndex = firstDigit(arrayCoords)
-            commaCoordinates = [firstIndex, secondIndex];
+            coordinatesAsArrayValues = [firstIndex, secondIndex];
         } else {
             let firstIndex = firstDigit(i);
             let secondIndex = lastDigit(i);
-            commaCoordinates = [firstIndex, secondIndex];
+            coordinatesAsArrayValues = [firstIndex, secondIndex];
         };
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
-                if (commaCoordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
+                if (coordinatesAsArrayValues[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
@@ -612,7 +612,7 @@ class GameBoard {
                 arrayCoords += 10;
                 if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
             } else if (direction == "horizontal") {
-                if (commaCoordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+                if (coordinatesAsArrayValues[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
                     throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
@@ -625,7 +625,7 @@ class GameBoard {
         }
         // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
 
-        tempShipObject.commaCoordinates = tempArray;
+        tempShipObject.coordinatesAsArrayValues = tempArray;
         tempShipObject.shipInstance = ship;
         this.arrayOfPlacedShipObjects.push(tempShipObject);
 
@@ -775,7 +775,7 @@ class GameBoard {
             let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
             GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
             for (let ship of GameBoard.gameBoardClassInstances[0].arrayOfPlacedShipObjects) {
-                for (let coordinate of ship.coordinates) {
+                for (let coordinate of ship.coordinatesAsArrayValues) {
                     if (coordinate === coordinates) {
                         ship.shipInstance.hit();
                     }
@@ -1079,6 +1079,7 @@ function placeShipsRandomly(arrayOfShips, player) {
             try {
                 test = player.playerBoard.placeShip(currentShip, coordinates, "vertical");    
             } catch (error) {
+                console.log('asd')
                 // coordinates = Math.floor(Math.random() * coordArray.length);
             }
 
@@ -1098,6 +1099,7 @@ console.log(humanPlayer.playerBoard.boardArray);
 //fix this
 //if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically')
 //make it not run every iteration, also make it check arraycoords. if arraycoords > 10 etc
+console.log(humanPlayer.playerBoard)
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
