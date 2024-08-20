@@ -700,7 +700,9 @@ class GameBoard {
         //Update the board visually with current location of ships/hits/nothings
         for (let i = 0; i < this.boardArray.length; i++) {
             if (this.boardArray[i] == 1) {
-                childDivs[i].innerText = 'ship';
+                //keep computer ships hidden
+                //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
+                childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
@@ -709,6 +711,14 @@ class GameBoard {
                 childDivs[i].innerText = "";
             }
         }
+
+        if (GameBoard.isPlayer1Turn === true) {
+            GameBoard.isPlayer1Turn = false;
+            document.getElementById('player-turn').style.visibility = 'hidden';
+        } else {
+            GameBoard.isPlayer1Turn = true;
+            document.getElementById('player-turn').style.visibility = 'visible';
+        };
     }
 
     onCellClick(coordinates, event) {//move dom changes to updateBoard method later?
@@ -724,19 +734,18 @@ class GameBoard {
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
             cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
-        if (GameBoard.isPlayer1Turn === true) {
-            GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
-        } else {
-            GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
-        }
+        // if (GameBoard.isPlayer1Turn === true) {
+        //     GameBoard.isPlayer1Turn = false;
+        //     document.getElementById('player-turn').style.visibility = 'hidden';
+        // } else {
+        //     GameBoard.isPlayer1Turn = true;
+        //     document.getElementById('player-turn').style.visibility = 'visible';
+        // };
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
         }
-        else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)
-        
+        else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)     
     }
 
     // computerAttack(coordinates) { //only relevant when playing against pc
@@ -1039,27 +1048,11 @@ computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 // }
 // placeShips();
 
-console.log(humanPlayer.playerBoard.boardArray);
-console.log(computerPlayer.playerBoard.boardArray);
-
-// humanPlayer.playerBoard.renderBoard(humanBoard, 'gridItem', 'humanGridItem');
-// computerPlayer.playerBoard.renderBoard(computerBoard, 'gridItem', 'computerGridItem');
-// humanPlayer.playerBoard.receiveAttack([0,0]);
-// humanPlayer.playerBoard.updateBoard("humanGridItem");
-// computerPlayer.playerBoard.updateBoard("computerGridItem");
-
 //maybe add form to allow player to place ship at coordinate?/
 //choose vertical - south or horizontal - going east 
 // make going south/east to be buttons/option to change them, unavailable first.
 //based on ship length if they want ship to go other direction, could calculate and reuse existing placeship
 
-//next:
-// make players take turns
-//make pc make random plays
-//hide ship positions?
-
-
-//can add function for start game/button
 function startGame() {
     let playerCells = document.getElementsByClassName('humanGridItem');
     for (let i = 0; i < playerCells.length; i++) {
@@ -1086,7 +1079,6 @@ function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of
         let test = [];
         while (test[0] == undefined) {
             coordinates = Math.floor(Math.random() * coordArray.length);
-            // console.log(coordinates);
             try {
                 test = player.playerBoard.placeShip(currentShip, coordinates, getRandomShipDirection());    
             } catch (error) {
@@ -1102,10 +1094,10 @@ function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of
 
 placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 placeShipsRandomly(arrayOfComputerShips, computerPlayer);
-humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
 
-
+//do I want player/computer to shoot again if they landed a hit?
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map

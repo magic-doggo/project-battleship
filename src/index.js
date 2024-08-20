@@ -69,7 +69,6 @@ function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of
         let test = [];
         while (test[0] == undefined) {
             coordinates = Math.floor(Math.random() * coordArray.length);
-            // console.log(coordinates);
             try {
                 test = player.playerBoard.placeShip(currentShip, coordinates, getRandomShipDirection());    
             } catch (error) {
@@ -85,7 +84,7 @@ function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of
 
 placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 placeShipsRandomly(arrayOfComputerShips, computerPlayer);
-humanPlayer.playerBoard.updateBoard("humanGridItem");
 computerPlayer.playerBoard.updateBoard("computerGridItem");
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
 
 //do I want player/computer to shoot again if they landed a hit?

@@ -182,7 +182,9 @@ export class GameBoard {
         //Update the board visually with current location of ships/hits/nothings
         for (let i = 0; i < this.boardArray.length; i++) {
             if (this.boardArray[i] == 1) {
-                childDivs[i].innerText = 'ship';
+                //keep computer ships hidden
+                //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
+                childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
@@ -191,6 +193,14 @@ export class GameBoard {
                 childDivs[i].innerText = "";
             }
         }
+
+        if (GameBoard.isPlayer1Turn === true) {
+            GameBoard.isPlayer1Turn = false;
+            document.getElementById('player-turn').style.visibility = 'hidden';
+        } else {
+            GameBoard.isPlayer1Turn = true;
+            document.getElementById('player-turn').style.visibility = 'visible';
+        };
     }
 
     onCellClick(coordinates, event) {//move dom changes to updateBoard method later?
@@ -206,19 +216,18 @@ export class GameBoard {
         for (let i = 0; i < cellsOnClickedBoard.length; i++) {
             cellsOnClickedBoard[i].classList.toggle('yourTurn');
         };
-        if (GameBoard.isPlayer1Turn === true) {
-            GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
-        } else {
-            GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
-        }
+        // if (GameBoard.isPlayer1Turn === true) {
+        //     GameBoard.isPlayer1Turn = false;
+        //     document.getElementById('player-turn').style.visibility = 'hidden';
+        // } else {
+        //     GameBoard.isPlayer1Turn = true;
+        //     document.getElementById('player-turn').style.visibility = 'visible';
+        // };
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
         }
-        else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)
-        
+        else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)     
     }
 
     // computerAttack(coordinates) { //only relevant when playing against pc
