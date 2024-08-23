@@ -196,10 +196,10 @@ export class GameBoard {
 
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
+            // document.getElementById('player-turn').style.visibility = 'visible';
         };
     }
 
@@ -291,7 +291,7 @@ export class GameBoard {
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Computer Won';
             document.getElementById('boards-container').classList.add('yourTurn');
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         }
     }
 
@@ -321,14 +321,36 @@ export class GameBoard {
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
+            // document.getElementById('player-turn').style.visibility = 'visible';
+        }
+    }
+
+    getRandomShipDirection() {
+        let shipDirections = ['vertical', 'horizontal'];
+        return shipDirections[Math.floor(Math.random() * shipDirections.length)];
+    }
+
+    placeShipsRandomly(arrayOfPlayerShips, player) {
+        let coordArray = this.createIndexArray(99);
+        for (let ship of arrayOfPlayerShips) {
+            let potentialShipCoords = [];
+            while (potentialShipCoords[0] == undefined) {
+                let coords = Math.floor(Math.random() * coordArray.length);
+                try {
+                    potentialShipCoords = player.playerBoard.placeShip(ship, coords, this.getRandomShipDirection());
+                } catch (error) {
+                    console.log(coords);
+                }
+            }
         }
     }
 }
 
+//should these be class methods too? used in the GameBoard class but not exactly connected, just helper functions
+//project requirement is not to have global functions
 export function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
     while (n >= 10) n /= 10;
     return Math.floor(n)

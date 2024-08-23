@@ -10,10 +10,11 @@
 <body>
     <h1>Battleship</h1>
     <div id="boards-container">
-        <!-- <div>Boards:</div> -->
         <div class="human-side">
             <div class="board-title">Human Board</div>
-            <div id="player-turn">Your Turn! Target the Computer Board and click to shoot!</div>
+            <!-- do not need 'your turn' text unless I implement delay on computer move, now it's always your turn-->
+            <!-- <div id="player-turn">Your Turn! Target the Computer Board and click to shoot!</div> -->
+            <br>
             <div id="human-board" class="board"></div>
         </div>
 
@@ -23,6 +24,7 @@
             <div id="computer-board" class="board"></div>
         </div>
     </div>
+    <button id="shuffle-board">Shuffle player board</button>
     <div id="winner"></div>
 </body>
 
