@@ -714,10 +714,10 @@ class GameBoard {
 
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
+            // document.getElementById('player-turn').style.visibility = 'visible';
         };
     }
 
@@ -809,7 +809,7 @@ class GameBoard {
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Computer Won';
             document.getElementById('boards-container').classList.add('yourTurn');
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         }
     }
 
@@ -839,14 +839,36 @@ class GameBoard {
         };
         if (GameBoard.isPlayer1Turn === true) {
             GameBoard.isPlayer1Turn = false;
-            document.getElementById('player-turn').style.visibility = 'hidden';
+            // document.getElementById('player-turn').style.visibility = 'hidden';
         } else {
             GameBoard.isPlayer1Turn = true;
-            document.getElementById('player-turn').style.visibility = 'visible';
+            // document.getElementById('player-turn').style.visibility = 'visible';
+        }
+    }
+
+    getRandomShipDirection() {
+        let shipDirections = ['vertical', 'horizontal'];
+        return shipDirections[Math.floor(Math.random() * shipDirections.length)];
+    }
+
+    placeShipsRandomly(arrayOfPlayerShips, player) {
+        let coordArray = this.createIndexArray(99);
+        for (let ship of arrayOfPlayerShips) {
+            let potentialShipCoords = [];
+            while (potentialShipCoords[0] == undefined) {
+                let coords = Math.floor(Math.random() * coordArray.length);
+                try {
+                    potentialShipCoords = player.playerBoard.placeShip(ship, coords, this.getRandomShipDirection());
+                } catch (error) {
+                    console.log(coords);
+                }
+            }
         }
     }
 }
 
+//should these be class methods too? used in the GameBoard class but not exactly connected, just helper functions
+//project requirement is not to have global functions
 function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
     while (n >= 10) n /= 10;
     return Math.floor(n)
@@ -1033,26 +1055,6 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-// function placeShips() {
-//     humanPlayer.playerBoard.placeShip(playerDestroyer, [0,0], 'vertical');
-//     humanPlayer.playerBoard.placeShip(playerSubmarine, [0,1], 'vertical');
-//     humanPlayer.playerBoard.placeShip(playerCruiser, [0,2], 'vertical');
-//     humanPlayer.playerBoard.placeShip(playerBattleship, [0,3], 'vertical');
-//     humanPlayer.playerBoard.placeShip(playerCarrier, [0,4], 'vertical');
-
-//     computerPlayer.playerBoard.placeShip(computerDestroyer, [5,0], 'horizontal');
-//     computerPlayer.playerBoard.placeShip(computerSubmarine, [6,0], 'horizontal');
-//     computerPlayer.playerBoard.placeShip(computerCruiser, [7,0], 'horizontal');
-//     computerPlayer.playerBoard.placeShip(computerBattleship, [8,0], 'horizontal');
-//     computerPlayer.playerBoard.placeShip(computerCarrier, [9,0], 'horizontal');
-// }
-// placeShips();
-
-//maybe add form to allow player to place ship at coordinate?/
-//choose vertical - south or horizontal - going east 
-// make going south/east to be buttons/option to change them, unavailable first.
-//based on ship length if they want ship to go other direction, could calculate and reuse existing placeship
-
 function startGame() {
     let playerCells = document.getElementsByClassName('humanGridItem');
     for (let i = 0; i < playerCells.length; i++) {
@@ -1065,39 +1067,26 @@ startGame();
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-let shipDirections = ['vertical', 'horizontal'];
-function getRandomShipDirection() {
-    return shipDirections[Math.floor(Math.random() * shipDirections.length)];
-}
+humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
-function placeShipsRandomly(arrayOfShips, player) { //should I do just a "for of" arrayOfShips?
-    let shallowCopy = [...arrayOfShips];
-    let coordArray = player.playerBoard.createIndexArray(99);
-    for (let i = shallowCopy.length; i > 0; i--) {
-        let currentShip = shallowCopy.pop();
-        let coordinates = Math.floor(Math.random() * coordArray.length);
-        let test = [];
-        while (test[0] == undefined) {
-            coordinates = Math.floor(Math.random() * coordArray.length);
-            try {
-                test = player.playerBoard.placeShip(currentShip, coordinates, getRandomShipDirection());    
-            } catch (error) {
-                //lazy way to find valid spots for all ships, it just runs placeShip until it finds a valid spot
-                //later can split placeShip into 2 methods, one method would just find valid spots?
-                //not big deal now, roughly 5-10 failed attempts total to place ships for both players
-                console.log(coordinates);
-            }
-
-        }
-    }
-}
-
-placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 computerPlayer.playerBoard.updateBoard("computerGridItem");
 humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
 
 //do I want player/computer to shoot again if they landed a hit?
+
+const shufflePlayerShipsButton = document.getElementById('shuffle-board');
+shufflePlayerShipsButton.addEventListener('click', () => {
+    humanPlayer.playerBoard.boardArray = new Array(100);
+    humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+    humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
+});
+
+
+//next move the startGame function to a method
+//allow shuffling board ONLY when game is new
+//add start game button
+
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
