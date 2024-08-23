@@ -618,7 +618,7 @@ class GameBoard {
                     throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
                 };
                 //increase by 1 when column changes (horizontal changes)
-                tempArray.push(arrayCoords, ' arraycoords horiz');
+                tempArray.push(arrayCoords);
                 arrayCoords += 1;
                 if (arrayCoords >= 100) console.log(arrayCoords);
             }
@@ -741,6 +741,8 @@ class GameBoard {
         //     GameBoard.isPlayer1Turn = true;
         //     document.getElementById('player-turn').style.visibility = 'visible';
         // };
+        console.log(GameBoard.gameBoardClassInstances[0].boardArray);
+        console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
