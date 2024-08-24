@@ -37,3 +37,8 @@
 #player-turn {
     font-weight: bolder;
 }
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+}

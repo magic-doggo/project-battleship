@@ -223,39 +223,14 @@ export class GameBoard {
         //     GameBoard.isPlayer1Turn = true;
         //     document.getElementById('player-turn').style.visibility = 'visible';
         // };
-        console.log(GameBoard.gameBoardClassInstances[0].boardArray);
-        console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
+        // console.log(GameBoard.gameBoardClassInstances[0].boardArray);
+        // console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
         }
         else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)     
     }
-
-    // computerAttack(coordinates) { //only relevant when playing against pc
-    //     this.receiveAttack(coordinates);
-    //     this.updateBoard('humanGridItem');
-
-    //     //selects computer cells
-    //     let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
-    //     //selects human player cells
-    //     let humanPlayerCells = document.getElementsByClassName('humanGridItem');
-    //     //makes computer cells interactive (useful after pc turn ends)
-    //     currentlyHiddenCells.forEach(cell => {
-    //         cell.classList.remove('yourTurn');
-    //     });
-    //     //makes human player cells unintaractive (since after pc shoots, human will need to shoot only pc board)
-    //     for (let i = 0; i < humanPlayerCells.length; i++) {
-    //         humanPlayerCells[i].classList.toggle('yourTurn');
-    //     };
-    //     if (GameBoard.isPlayer1Turn === true) {
-    //         GameBoard.isPlayer1Turn = false;
-    //         document.getElementById('player-turn').style.visibility = 'hidden';
-    //     } else {
-    //         GameBoard.isPlayer1Turn = true;
-    //         document.getElementById('player-turn').style.visibility = 'visible';
-    //     }
-    // }
 
     createIndexArray(n) {
         let newArr = [];

@@ -59,7 +59,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 
 #player-turn {
     font-weight: bolder;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}"],"sourceRoot":""}]);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 20px;
+}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -741,39 +746,14 @@ class GameBoard {
         //     GameBoard.isPlayer1Turn = true;
         //     document.getElementById('player-turn').style.visibility = 'visible';
         // };
-        console.log(GameBoard.gameBoardClassInstances[0].boardArray);
-        console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
+        // console.log(GameBoard.gameBoardClassInstances[0].boardArray);
+        // console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
         }
         else GameBoard.gameBoardClassInstances[0].receiveAttackFromPc(GameBoard.gameBoardClassInstances[0].getRadomNotShotPlayerBoardCoordinate)     
     }
-
-    // computerAttack(coordinates) { //only relevant when playing against pc
-    //     this.receiveAttack(coordinates);
-    //     this.updateBoard('humanGridItem');
-
-    //     //selects computer cells
-    //     let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
-    //     //selects human player cells
-    //     let humanPlayerCells = document.getElementsByClassName('humanGridItem');
-    //     //makes computer cells interactive (useful after pc turn ends)
-    //     currentlyHiddenCells.forEach(cell => {
-    //         cell.classList.remove('yourTurn');
-    //     });
-    //     //makes human player cells unintaractive (since after pc shoots, human will need to shoot only pc board)
-    //     for (let i = 0; i < humanPlayerCells.length; i++) {
-    //         humanPlayerCells[i].classList.toggle('yourTurn');
-    //     };
-    //     if (GameBoard.isPlayer1Turn === true) {
-    //         GameBoard.isPlayer1Turn = false;
-    //         document.getElementById('player-turn').style.visibility = 'hidden';
-    //     } else {
-    //         GameBoard.isPlayer1Turn = true;
-    //         document.getElementById('player-turn').style.visibility = 'visible';
-    //     }
-    // }
 
     createIndexArray(n) {
         let newArr = [];
@@ -1057,13 +1037,13 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-function startGame() {
-    let playerCells = document.getElementsByClassName('humanGridItem');
-    for (let i = 0; i < playerCells.length; i++) {
-        playerCells[i].classList.add('yourTurn');
-    }
-}
-startGame();
+// function startGame() {
+//     let playerCells = document.getElementsByClassName('humanGridItem');
+//     for (let i = 0; i < playerCells.length; i++) {
+//         playerCells[i].classList.add('yourTurn');
+//     }
+// }
+// startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
@@ -1073,7 +1053,7 @@ humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
 computerPlayer.playerBoard.updateBoard("computerGridItem");
-humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 //do I want player/computer to shoot again if they landed a hit?
 
@@ -1081,7 +1061,11 @@ const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
     humanPlayer.playerBoard.boardArray = new Array(100);
     humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-    humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
+    humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+
+    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+    computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
 

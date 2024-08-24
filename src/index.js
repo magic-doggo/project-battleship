@@ -23,13 +23,13 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-function startGame() {
-    let playerCells = document.getElementsByClassName('humanGridItem');
-    for (let i = 0; i < playerCells.length; i++) {
-        playerCells[i].classList.add('yourTurn');
-    }
-}
-startGame();
+// function startGame() {
+//     let playerCells = document.getElementsByClassName('humanGridItem');
+//     for (let i = 0; i < playerCells.length; i++) {
+//         playerCells[i].classList.add('yourTurn');
+//     }
+// }
+// startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
@@ -39,7 +39,7 @@ humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
 computerPlayer.playerBoard.updateBoard("computerGridItem");
-humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 //do I want player/computer to shoot again if they landed a hit?
 
@@ -47,7 +47,11 @@ const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
     humanPlayer.playerBoard.boardArray = new Array(100);
     humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-    humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem")
+    humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+
+    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+    computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
 
