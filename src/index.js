@@ -23,23 +23,16 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-// function startGame() {
-//     let playerCells = document.getElementsByClassName('humanGridItem');
-//     for (let i = 0; i < playerCells.length; i++) {
-//         playerCells[i].classList.add('yourTurn');
-//     }
-// }
-// startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+// humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+// computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
-computerPlayer.playerBoard.updateBoard("computerGridItem");
-humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+// computerPlayer.playerBoard.updateBoard("computerGridItem");
+// humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 //do I want player/computer to shoot again if they landed a hit?
 
@@ -54,7 +47,5 @@ shufflePlayerShipsButton.addEventListener('click', () => {
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
+//make game start without ships? or have button to place ships manually
 
-//next move the startGame function to a method
-//allow shuffling board ONLY when game is new
-//add start game button

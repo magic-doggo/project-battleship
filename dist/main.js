@@ -64,7 +64,33 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 .buttons-container {
     display: flex;
     gap: 20px;
-}`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}"],"sourceRoot":""}]);
+}
+
+#ships-container {
+    border: 2px solid red;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.shipBlock {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+#playerDestroyer,
+#playerSubmarine,
+#playerCruiser,
+#playerBattleship,
+#playerCarrier {
+    display: flex;
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;IAKI,aAAa;AACjB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n#ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n#playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1037,23 +1063,16 @@ let computerBoard = document.getElementById('computer-board');
 humanPlayer.playerBoard.renderBoard(humanBoard, 'humanGridItem');
 computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 
-// function startGame() {
-//     let playerCells = document.getElementsByClassName('humanGridItem');
-//     for (let i = 0; i < playerCells.length; i++) {
-//         playerCells[i].classList.add('yourTurn');
-//     }
-// }
-// startGame();
 //fix eslint output tab: Config (unnamed): Key "plugins": This appears to be in eslintrc format (array of strings) rather than flat config format (object)
 
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+// humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+// computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
-computerPlayer.playerBoard.updateBoard("computerGridItem");
-humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+// computerPlayer.playerBoard.updateBoard("computerGridItem");
+// humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 //do I want player/computer to shoot again if they landed a hit?
 
@@ -1068,10 +1087,8 @@ shufflePlayerShipsButton.addEventListener('click', () => {
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
+//make game start without ships? or have button to place ships manually
 
-//next move the startGame function to a method
-//allow shuffling board ONLY when game is new
-//add start game button
 
 /******/ })()
 ;

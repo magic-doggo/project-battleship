@@ -42,3 +42,28 @@
     display: flex;
     gap: 20px;
 }
+
+#ships-container {
+    border: 2px solid red;
+    display: flex;
+    /* flex-direction: column; */
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 50%;
+}
+
+.shipBlock {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+#playerDestroyer,
+#playerSubmarine,
+#playerCruiser,
+#playerBattleship,
+#playerCarrier {
+    display: flex;
+}
