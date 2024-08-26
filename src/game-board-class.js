@@ -174,6 +174,10 @@ export class GameBoard {
                     this.onCellClick([a, b], event);
                 });
             }
+            gridItem.addEventListener('dragover', (event) => {
+                //prevent default to allow drop
+                event.preventDefault();
+            })
         }
     }
 

@@ -48,4 +48,57 @@ shufflePlayerShipsButton.addEventListener('click', () => {
 });
 
 //make game start without ships? or have button to place ships manually
+//drag ship to spot
+//make function to check if spot is valid
+//placeship at location
 
+//maybe update renderBoard to add event listener for drop?
+//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
+
+//how to know ship and direction in rederboard, before dragevent is started?
+//or move it all to different method/module
+
+let dragged = null;
+let playerDestroyerDiv = document.getElementById('playerDestroyer');
+playerDestroyerDiv.addEventListener('dragstart', (event) => {
+    dragged = event.target;
+    console.log(dragged.id);
+    console.log(dragged.childElementCount)
+})
+console.log(playerDestroyerDiv)
+
+let playerGridItems = document.getElementsByClassName('humanGridItem');
+// for (let playerGridItem of playerGridItems) {
+//     console.log(indexo)
+//     playerGridItem.addEventListener('drop', (event) => {
+//         event.preventDefault();
+//         if (event.target.className === 'humanGridItem') {
+//             let ship;
+//             // this.placeShip(ship, i, direction) //define ship and direction each time for each ship?
+//             console.log(this, " this");
+//             console.log(event.target);
+//             if (dragged.id == 'playerDestroyer') {
+//                 ship = playerDestroyer;
+//             }
+//             GameBoard.gameBoardClassInstances[0].placeShip(ship, 3, 'vertical')
+//             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+//         }
+//     })
+// }
+
+for (let i = 0; i < playerGridItems.length; i++) {
+    playerGridItems[i].addEventListener('drop', (event) => {
+        event.preventDefault();
+        if (event.target.className === 'humanGridItem') {
+            let ship;
+            // this.placeShip(ship, i, direction) //define ship and direction each time for each ship?
+            console.log(this, " this");
+            console.log(event.target);
+            if (dragged.id == 'playerDestroyer') {
+                ship = playerDestroyer;
+            }
+            GameBoard.gameBoardClassInstances[0].placeShip(ship, i, 'vertical')
+            humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+        }
+    })
+}

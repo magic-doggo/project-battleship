@@ -66,4 +66,5 @@
 #playerBattleship,
 #playerCarrier {
     display: flex;
+    cursor: move;
 }
