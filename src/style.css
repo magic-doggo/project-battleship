@@ -43,7 +43,7 @@
     gap: 20px;
 }
 
-#ships-container {
+.ships-container {
     border: 2px solid red;
     display: flex;
     /* flex-direction: column; */
@@ -60,11 +60,27 @@
     box-sizing: border-box;
 }
 
-#playerDestroyer,
+/* #playerDestroyer,
 #playerSubmarine,
 #playerCruiser,
 #playerBattleship,
 #playerCarrier {
     display: flex;
     cursor: move;
+} */
+
+.draggableShip {
+    display: flex;
+    cursor: move;
 }
+
+.draggableShipVertical {
+    display: block;
+}
+
+
+
+/* body { */
+    /* Prevent the user from selecting text in the example */
+    /* user-select: none;
+  } */

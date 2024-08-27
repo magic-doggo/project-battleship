@@ -29,28 +29,28 @@
         <button id="shuffle-board">Shuffle player boards / Reset Game</button>
     </div>
     <div id="winner"></div>
-    <div id="ships-container">
-        <div id="playerDestroyer" draggable="true">
+    <div class="ships-container">
+        <div id="playerDestroyer" draggable="true" class="draggableShip">
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
         </div>
-        <div id="playerSubmarine" draggable="true">
-            <div class="shipBlock"></div>
-            <div class="shipBlock"></div>
-            <div class="shipBlock"></div>
-        </div>
-        <div id="playerCruiser" draggable="true">
+        <div id="playerSubmarine" draggable="true" class="draggableShip">
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
         </div>
-        <div id="playerBattleship" draggable="true">
+        <div id="playerCruiser" draggable="true" class="draggableShip">
+            <div class="shipBlock"></div>
+            <div class="shipBlock"></div>
+            <div class="shipBlock"></div>
+        </div>
+        <div id="playerBattleship" draggable="true" class="draggableShip">
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
         </div>
-        <div id="playerCarrier" draggable="true">
+        <div id="playerCarrier" draggable="true" class="draggableShip">
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
             <div class="shipBlock"></div>
@@ -58,6 +58,7 @@
             <div class="shipBlock"></div>
         </div>
     </div>
+    <button id="ships-direction">Flip Ships Direction</button>
 </body>
 
 </html>

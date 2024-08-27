@@ -102,3 +102,17 @@ for (let i = 0; i < playerGridItems.length; i++) {
         }
     })
 }
+
+// let 
+let flipShipDirButton = document.getElementById('ships-direction');
+flipShipDirButton.addEventListener('click', () => {
+    let draggableShips = document.getElementsByClassName('draggableShip');
+    for (let i = 0; i < draggableShips.length; i++) {
+        draggableShips[i].classList.toggle('draggableShipVertical');
+    }
+})
+
+
+//make button to change orientation of ships in box: vertical or horizontal
+//depending on current orientation, use this as 'direction' in placeship
+//have ways to check dragged.id for all ships, not repetitive if possible

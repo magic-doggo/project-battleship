@@ -66,7 +66,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     gap: 20px;
 }
 
-#ships-container {
+.ships-container {
     border: 2px solid red;
     display: flex;
     /* flex-direction: column; */
@@ -83,15 +83,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     box-sizing: border-box;
 }
 
-#playerDestroyer,
+/* #playerDestroyer,
 #playerSubmarine,
 #playerCruiser,
 #playerBattleship,
 #playerCarrier {
     display: flex;
     cursor: move;
+} */
+
+.draggableShip {
+    display: flex;
+    cursor: move;
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;IAKI,aAAa;IACb,YAAY;AAChB","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n#ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n#playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n}\n"],"sourceRoot":""}]);
+
+.draggableShipVertical {
+    display: block;
+}
+
+
+
+/* body { */
+    /* Prevent the user from selecting text in the example */
+    /* user-select: none;
+  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1147,6 +1162,20 @@ for (let i = 0; i < playerGridItems.length; i++) {
         }
     })
 }
+
+// let 
+let flipShipDirButton = document.getElementById('ships-direction');
+flipShipDirButton.addEventListener('click', () => {
+    let draggableShips = document.getElementsByClassName('draggableShip');
+    for (let i = 0; i < draggableShips.length; i++) {
+        draggableShips[i].classList.toggle('draggableShipVertical');
+    }
+})
+
+
+//make button to change orientation of ships in box: vertical or horizontal
+//depending on current orientation, use this as 'direction' in placeship
+//have ways to check dragged.id for all ships, not repetitive if possible
 
 /******/ })()
 ;
