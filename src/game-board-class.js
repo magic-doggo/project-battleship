@@ -188,7 +188,9 @@ export class GameBoard {
             if (this.boardArray[i] == 1) {
                 //keep computer ships hidden
                 //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
-                childDivs[i].innerText = '';
+                //this solution sucks, find one without specifying a predefined class name?
+                if (specificPlayerGridClass == 'humanGridItem') childDivs[i].innerText = 'ship';
+                else childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {

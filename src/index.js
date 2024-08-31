@@ -91,19 +91,22 @@ for (let i = 0; i < playerGridItems.length; i++) {
         event.preventDefault();
         if (event.target.className === 'humanGridItem') {
             let ship;
-            // this.placeShip(ship, i, direction) //define ship and direction each time for each ship?
-            console.log(this, " this");
             console.log(event.target);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             }
-            GameBoard.gameBoardClassInstances[0].placeShip(ship, i, 'vertical')
-            humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+            let direction;
+            //maybe make solution that does not rely on dom,
+            //just create parameter that switches between horiz and vertical?
+            if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
+                direction = 'horizontal';
+            } else direction = 'vertical';
+            GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
+            humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
     })
 }
 
-// let 
 let flipShipDirButton = document.getElementById('ships-direction');
 flipShipDirButton.addEventListener('click', () => {
     let draggableShips = document.getElementsByClassName('draggableShip');
@@ -113,6 +116,4 @@ flipShipDirButton.addEventListener('click', () => {
 })
 
 
-//make button to change orientation of ships in box: vertical or horizontal
-//depending on current orientation, use this as 'direction' in placeship
 //have ways to check dragged.id for all ships, not repetitive if possible

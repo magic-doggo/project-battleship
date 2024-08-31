@@ -753,7 +753,8 @@ class GameBoard {
             if (this.boardArray[i] == 1) {
                 //keep computer ships hidden
                 //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
-                childDivs[i].innerText = '';
+                if (specificPlayerGridClass == 'humanGridItem') childDivs[i].innerText = 'ship';
+                else childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
@@ -1151,14 +1152,16 @@ for (let i = 0; i < playerGridItems.length; i++) {
         event.preventDefault();
         if (event.target.className === 'humanGridItem') {
             let ship;
-            // this.placeShip(ship, i, direction) //define ship and direction each time for each ship?
-            console.log(undefined, " this");
             console.log(event.target);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             }
-            _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard.gameBoardClassInstances[0].placeShip(ship, i, 'vertical')
-            humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+            let direction;
+            if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
+                direction = 'horizontal';
+            } else direction = 'vertical';
+            _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
+            humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
     })
 }
@@ -1177,6 +1180,9 @@ flipShipDirButton.addEventListener('click', () => {
 //depending on current orientation, use this as 'direction' in placeship
 //have ways to check dragged.id for all ships, not repetitive if possible
 
+console.log(playerDestroyerDiv, " asd")
+let test = window.getComputedStyle(playerDestroyerDiv)
+console.log(window.getComputedStyle(playerDestroyerDiv).display);
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
