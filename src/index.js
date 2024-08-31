@@ -31,10 +31,6 @@ let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruise
 // humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 // computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
-// computerPlayer.playerBoard.updateBoard("computerGridItem");
-// humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
-
-//do I want player/computer to shoot again if they landed a hit?
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
@@ -47,24 +43,22 @@ shufflePlayerShipsButton.addEventListener('click', () => {
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
-//make game start without ships? or have button to place ships manually
-//drag ship to spot
-//make function to check if spot is valid
-//placeship at location
-
 //maybe update renderBoard to add event listener for drop?
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
 
-//how to know ship and direction in rederboard, before dragevent is started?
-//or move it all to different method/module
-
 let dragged = null;
 let playerDestroyerDiv = document.getElementById('playerDestroyer');
-playerDestroyerDiv.addEventListener('dragstart', (event) => {
-    dragged = event.target;
-    console.log(dragged.id);
-    console.log(dragged.childElementCount)
-})
+let playerSubmarineDiv = document.getElementById('playerSubmarine');
+let playerCruiserDiv = document.getElementById('playerCruiser');
+let playerBattleshipDiv = document.getElementById('playerBattleship');
+let playerCarrierDiv = document.getElementById('playerCarrier');
+let arrayOfShipsDivs = [playerDestroyerDiv,playerSubmarineDiv, playerCruiserDiv, playerBattleshipDiv, playerCarrierDiv];
+
+for (let ship of arrayOfShipsDivs) {
+    ship.addEventListener('dragstart', (event)=> {
+        dragged=event.target;
+    })
+}
 console.log(playerDestroyerDiv)
 
 let playerGridItems = document.getElementsByClassName('humanGridItem');
@@ -94,6 +88,14 @@ for (let i = 0; i < playerGridItems.length; i++) {
             console.log(event.target);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
+            } else if (dragged.id == 'playerSubmarine') {
+                ship = playerSubmarine;
+            } else if (dragged.id == 'playerCruiser') {
+                ship = playerCruiser;
+            } else if (dragged.id == 'playerBattleship') {
+                ship = playerBattleship;
+            } else if (dragged.id == 'playerCarrier') {
+                ship = playerCarrier;
             }
             let direction;
             //maybe make solution that does not rely on dom,
