@@ -753,6 +753,7 @@ class GameBoard {
             if (this.boardArray[i] == 1) {
                 //keep computer ships hidden
                 //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
+                //this solution sucks, find one without specifying a predefined class name?
                 if (specificPlayerGridClass == 'humanGridItem') childDivs[i].innerText = 'ship';
                 else childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
@@ -1092,10 +1093,6 @@ let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruise
 // humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 // computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
-// computerPlayer.playerBoard.updateBoard("computerGridItem");
-// humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
-
-//do I want player/computer to shoot again if they landed a hit?
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
@@ -1108,24 +1105,27 @@ shufflePlayerShipsButton.addEventListener('click', () => {
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 });
 
-//make game start without ships? or have button to place ships manually
-//drag ship to spot
-//make function to check if spot is valid
-//placeship at location
-
 //maybe update renderBoard to add event listener for drop?
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
 
-//how to know ship and direction in rederboard, before dragevent is started?
-//or move it all to different method/module
-
 let dragged = null;
 let playerDestroyerDiv = document.getElementById('playerDestroyer');
-playerDestroyerDiv.addEventListener('dragstart', (event) => {
-    dragged = event.target;
-    console.log(dragged.id);
-    console.log(dragged.childElementCount)
-})
+let playerSubmarineDiv = document.getElementById('playerSubmarine');
+let playerCruiserDiv = document.getElementById('playerCruiser');
+let playerBattleshipDiv = document.getElementById('playerBattleship');
+let playerCarrierDiv = document.getElementById('playerCarrier');
+let arrayOfShipsDivs = [playerDestroyerDiv,playerSubmarineDiv, playerCruiserDiv, playerBattleshipDiv, playerCarrierDiv];
+
+// playerDestroyerDiv.addEventListener('dragstart', (event) => {
+//     dragged = event.target;
+//     console.log(dragged.id);
+//     console.log(dragged.childElementCount)
+// })
+for (let ship of arrayOfShipsDivs) {
+    ship.addEventListener('dragstart', (event)=> {
+        dragged=event.target;
+    })
+}
 console.log(playerDestroyerDiv)
 
 let playerGridItems = document.getElementsByClassName('humanGridItem');
@@ -1155,8 +1155,18 @@ for (let i = 0; i < playerGridItems.length; i++) {
             console.log(event.target);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
+            } else if (dragged.id == 'playerSubmarine') {
+                ship = playerSubmarine;
+            } else if (dragged.id == 'playerCruiser') {
+                ship = playerCruiser;
+            } else if (dragged.id == 'playerBattleship') {
+                ship = playerBattleship;
+            } else if (dragged.id == 'playerCarrier') {
+                ship = playerCarrier;
             }
             let direction;
+            //maybe make solution that does not rely on dom,
+            //just create parameter that switches between horiz and vertical?
             if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
                 direction = 'horizontal';
             } else direction = 'vertical';
@@ -1166,7 +1176,6 @@ for (let i = 0; i < playerGridItems.length; i++) {
     })
 }
 
-// let 
 let flipShipDirButton = document.getElementById('ships-direction');
 flipShipDirButton.addEventListener('click', () => {
     let draggableShips = document.getElementsByClassName('draggableShip');
@@ -1176,13 +1185,7 @@ flipShipDirButton.addEventListener('click', () => {
 })
 
 
-//make button to change orientation of ships in box: vertical or horizontal
-//depending on current orientation, use this as 'direction' in placeship
 //have ways to check dragged.id for all ships, not repetitive if possible
-
-console.log(playerDestroyerDiv, " asd")
-let test = window.getComputedStyle(playerDestroyerDiv)
-console.log(window.getComputedStyle(playerDestroyerDiv).display);
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
