@@ -82,10 +82,11 @@ let playerGridItems = document.getElementsByClassName('humanGridItem');
 for (let i = 0; i < playerGridItems.length; i++) {
     playerGridItems[i].addEventListener('drop', (event) => {
         event.preventDefault();
+        console.log(event);
         if (event.target.className === 'humanGridItem') {
             let ship;
             console.log(event.target);
-            console.log(clickedShipCell);
+            console.log(dragged);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             } else if (dragged.id == 'playerSubmarine') {
@@ -116,6 +117,7 @@ for (let i = 0; i < playerGridItems.length; i++) {
             GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
+        dragged.remove();
     })
 }
 
@@ -128,7 +130,6 @@ flipShipDirButton.addEventListener('click', () => {
 })
 
 let clickedShipCell;
-//adjust placeShip coordinates according to which ship subdiv is dragged
 let playerShipCells = document.getElementsByClassName('shipBlock');
 for (let shipCell of playerShipCells) {
     shipCell.addEventListener('mousedown', (event) => {
