@@ -650,7 +650,7 @@ class GameBoard {
         };
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
-                if (coordinatesAsArrayValues[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
+                if (coordinatesAsArrayValues[0] + ship.length > 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
@@ -660,7 +660,7 @@ class GameBoard {
                 arrayCoords += 10;
                 if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
             } else if (direction == "horizontal") {
-                if (coordinatesAsArrayValues[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+                if (coordinatesAsArrayValues[1] + ship.length > 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
                     throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
@@ -1168,13 +1168,14 @@ for (let i = 0; i < playerGridItems.length; i++) {
             } else direction = 'vertical';
             while (clickedShipCell > 1) {
                 if (direction == 'horizontal') {
-                    i--;
+                    i --;
                     clickedShipCell--;
                 } else {
                     i = i - 10;
-                    clickedShipCell;
+                    clickedShipCell--;
                 }
             }
+            if (i < 0) throw new Error ('Part of ship is off Board')
             _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }

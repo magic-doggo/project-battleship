@@ -84,7 +84,7 @@ export class GameBoard {
         };
         for (let i = 0; i < ship.length; i++) {
             if (direction == "vertical") {
-                if (coordinatesAsArrayValues[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
+                if (coordinatesAsArrayValues[0] + ship.length > 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
                 //increase by 10 when row changes (vertical changes)
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
@@ -94,7 +94,7 @@ export class GameBoard {
                 arrayCoords += 10;
                 if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
             } else if (direction == "horizontal") {
-                if (coordinatesAsArrayValues[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
+                if (coordinatesAsArrayValues[1] + ship.length > 10) throw new Error('ship does not fit horizontally');
                 if (this.boardArray[arrayCoords] != undefined) {
                     tempArray = [];
                     throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)

@@ -105,13 +105,14 @@ for (let i = 0; i < playerGridItems.length; i++) {
             } else direction = 'vertical';
             while (clickedShipCell > 1) {
                 if (direction == 'horizontal') {
-                    i--;
+                    i --;
                     clickedShipCell--;
                 } else {
                     i = i - 10;
-                    clickedShipCell;
+                    clickedShipCell--;
                 }
             }
+            if (i < 0) throw new Error ('Part of ship is off Board')
             GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
