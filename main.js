@@ -95,6 +95,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 .draggableShip {
     display: flex;
     cursor: move;
+    /* position: absolute; */
 }
 
 .draggableShipVertical {
@@ -106,7 +107,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 /* body { */
     /* Prevent the user from selecting text in the example */
     /* user-select: none;
-  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
+  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1116,18 +1117,12 @@ let playerBattleshipDiv = document.getElementById('playerBattleship');
 let playerCarrierDiv = document.getElementById('playerCarrier');
 let arrayOfShipsDivs = [playerDestroyerDiv,playerSubmarineDiv, playerCruiserDiv, playerBattleshipDiv, playerCarrierDiv];
 
-// playerDestroyerDiv.addEventListener('dragstart', (event) => {
-//     dragged = event.target;
-//     console.log(dragged.id);
-//     console.log(dragged.childElementCount)
-// })
 for (let ship of arrayOfShipsDivs) {
     ship.addEventListener('dragstart', (event)=> {
         dragged=event.target;
+
     })
 }
-console.log(playerDestroyerDiv)
-
 let playerGridItems = document.getElementsByClassName('humanGridItem');
 // for (let playerGridItem of playerGridItems) {
 //     console.log(indexo)
@@ -1153,6 +1148,7 @@ for (let i = 0; i < playerGridItems.length; i++) {
         if (event.target.className === 'humanGridItem') {
             let ship;
             console.log(event.target);
+            console.log(clickedShipCell);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             } else if (dragged.id == 'playerSubmarine') {
@@ -1170,6 +1166,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
             if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
                 direction = 'horizontal';
             } else direction = 'vertical';
+            while (clickedShipCell > 1) {
+                if (direction == 'horizontal') {
+                    i--;
+                    clickedShipCell--;
+                } else {
+                    i = i - 10;
+                    clickedShipCell;
+                }
+            }
             _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
@@ -1184,8 +1189,14 @@ flipShipDirButton.addEventListener('click', () => {
     }
 })
 
-
-//have ways to check dragged.id for all ships, not repetitive if possible
+let clickedShipCell;
+//adjust placeShip coordinates according to which ship subdiv is dragged
+let playerShipCells = document.getElementsByClassName('shipBlock');
+for (let shipCell of playerShipCells) {
+    shipCell.addEventListener('mousedown', (event) => {
+        clickedShipCell = shipCell.classList[1];
+    })
+}
 /******/ })()
 ;
 //# sourceMappingURL=main.js.map
