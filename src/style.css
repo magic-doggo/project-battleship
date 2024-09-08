@@ -72,6 +72,7 @@
 .draggableShip {
     display: flex;
     cursor: move;
+    /* position: absolute; */
 }
 
 .draggableShipVertical {

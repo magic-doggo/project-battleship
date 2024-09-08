@@ -57,10 +57,9 @@ let arrayOfShipsDivs = [playerDestroyerDiv,playerSubmarineDiv, playerCruiserDiv,
 for (let ship of arrayOfShipsDivs) {
     ship.addEventListener('dragstart', (event)=> {
         dragged=event.target;
+
     })
 }
-console.log(playerDestroyerDiv)
-
 let playerGridItems = document.getElementsByClassName('humanGridItem');
 // for (let playerGridItem of playerGridItems) {
 //     console.log(indexo)
@@ -86,6 +85,7 @@ for (let i = 0; i < playerGridItems.length; i++) {
         if (event.target.className === 'humanGridItem') {
             let ship;
             console.log(event.target);
+            console.log(clickedShipCell);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             } else if (dragged.id == 'playerSubmarine') {
@@ -103,6 +103,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
             if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
                 direction = 'horizontal';
             } else direction = 'vertical';
+            while (clickedShipCell > 1) {
+                if (direction == 'horizontal') {
+                    i--;
+                    clickedShipCell--;
+                } else {
+                    i = i - 10;
+                    clickedShipCell;
+                }
+            }
             GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
@@ -117,5 +126,11 @@ flipShipDirButton.addEventListener('click', () => {
     }
 })
 
-
-//have ways to check dragged.id for all ships, not repetitive if possible
+let clickedShipCell;
+//adjust placeShip coordinates according to which ship subdiv is dragged
+let playerShipCells = document.getElementsByClassName('shipBlock');
+for (let shipCell of playerShipCells) {
+    shipCell.addEventListener('mousedown', (event) => {
+        clickedShipCell = shipCell.classList[1];
+    })
+}
