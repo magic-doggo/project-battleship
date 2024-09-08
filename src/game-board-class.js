@@ -189,14 +189,22 @@ export class GameBoard {
                 //keep computer ships hidden
                 //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
                 //this solution sucks, find one without specifying a predefined class name?
-                if (specificPlayerGridClass == 'humanGridItem') childDivs[i].innerText = 'ship';
+                if (specificPlayerGridClass == 'humanGridItem') {
+                    childDivs[i].innerText = 'ship';
+                    childDivs[i].style.backgroundColor = "blue";
+                }
                 else childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
+                childDivs[i].style.backgroundColor = "red";
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
+                // childDivs[i].style.backgroundColor = "white";
+                childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = 'miss';
             } else {
                 childDivs[i].innerText = "";
+                childDivs[i].style.removeProperty('background-color');
+                // childDivs[i].style.backgroundColor = "white";
             }
         }
 
@@ -288,11 +296,19 @@ export class GameBoard {
         for (let i = 0; i < GameBoard.gameBoardClassInstances[0].boardArray.length; i++) {
             if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 1) {
                 childDivs[i].innerText = 'ship';
+                childDivs[i].style.backgroundColor = "blue";
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
+                childDivs[i].style.backgroundColor = "red";
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
-            } else childDivs[i].innerText = "";
+                childDivs[i].style.removeProperty('background-color');
+                // childDivs[i].style.backgroundColor = "white";
+            } else {
+                // childDivs[i].style.backgroundColor = "white";
+                childDivs[i].style.removeProperty('background-color');
+                childDivs[i].innerText = "";
+            }
         }
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let cellsOnClickedBoard = document.getElementsByClassName(specificPlayerGridClass);

@@ -95,6 +95,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 .draggableShip {
     display: flex;
     cursor: move;
+    background-color: blue;
     /* position: absolute; */
 }
 
@@ -107,7 +108,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
 /* body { */
     /* Prevent the user from selecting text in the example */
     /* user-select: none;
-  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
+  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;IACZ,sBAAsB;IACtB,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    background-color: blue;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -755,14 +756,22 @@ class GameBoard {
                 //keep computer ships hidden
                 //updatePlayerBoardAfterPcAttack() is used on the player board, which does show ship location
                 //this solution sucks, find one without specifying a predefined class name?
-                if (specificPlayerGridClass == 'humanGridItem') childDivs[i].innerText = 'ship';
+                if (specificPlayerGridClass == 'humanGridItem') {
+                    childDivs[i].innerText = 'ship';
+                    childDivs[i].style.backgroundColor = "blue";
+                }
                 else childDivs[i].innerText = '';
             } else if (this.boardArray[i] == 'x') {
+                childDivs[i].style.backgroundColor = "red";
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
+                // childDivs[i].style.backgroundColor = "white";
+                childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = 'miss';
             } else {
                 childDivs[i].innerText = "";
+                childDivs[i].style.removeProperty('background-color');
+                // childDivs[i].style.backgroundColor = "white";
             }
         }
 
@@ -854,11 +863,19 @@ class GameBoard {
         for (let i = 0; i < GameBoard.gameBoardClassInstances[0].boardArray.length; i++) {
             if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 1) {
                 childDivs[i].innerText = 'ship';
+                childDivs[i].style.backgroundColor = "blue";
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 'x') {
                 childDivs[i].innerText = 'hit';
+                childDivs[i].style.backgroundColor = "red";
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
-            } else childDivs[i].innerText = "";
+                childDivs[i].style.removeProperty('background-color');
+                // childDivs[i].style.backgroundColor = "white";
+            } else {
+                // childDivs[i].style.backgroundColor = "white";
+                childDivs[i].style.removeProperty('background-color');
+                childDivs[i].innerText = "";
+            }
         }
         let currentlyHiddenCells = document.querySelectorAll('.yourTurn');
         let cellsOnClickedBoard = document.getElementsByClassName(specificPlayerGridClass);
