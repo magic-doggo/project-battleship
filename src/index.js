@@ -61,32 +61,13 @@ for (let ship of arrayOfShipsDivs) {
     })
 }
 let playerGridItems = document.getElementsByClassName('humanGridItem');
-// for (let playerGridItem of playerGridItems) {
-//     console.log(indexo)
-//     playerGridItem.addEventListener('drop', (event) => {
-//         event.preventDefault();
-//         if (event.target.className === 'humanGridItem') {
-//             let ship;
-//             // this.placeShip(ship, i, direction) //define ship and direction each time for each ship?
-//             console.log(this, " this");
-//             console.log(event.target);
-//             if (dragged.id == 'playerDestroyer') {
-//                 ship = playerDestroyer;
-//             }
-//             GameBoard.gameBoardClassInstances[0].placeShip(ship, 3, 'vertical')
-//             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
-//         }
-//     })
-// }
 
+let direction = 'horizontal';
 for (let i = 0; i < playerGridItems.length; i++) {
     playerGridItems[i].addEventListener('drop', (event) => {
         event.preventDefault();
-        console.log(event);
         if (event.target.className === 'humanGridItem') {
             let ship;
-            console.log(event.target);
-            console.log(dragged);
             if (dragged.id == 'playerDestroyer') {
                 ship = playerDestroyer;
             } else if (dragged.id == 'playerSubmarine') {
@@ -98,12 +79,11 @@ for (let i = 0; i < playerGridItems.length; i++) {
             } else if (dragged.id == 'playerCarrier') {
                 ship = playerCarrier;
             }
-            let direction;
             //maybe make solution that does not rely on dom,
             //just create parameter that switches between horiz and vertical?
-            if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
-                direction = 'horizontal';
-            } else direction = 'vertical';
+            // if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
+            //     direction = 'horizontal';
+            // } else direction = 'vertical';
             while (clickedShipCell > 1) {
                 if (direction == 'horizontal') {
                     i --;
@@ -113,7 +93,8 @@ for (let i = 0; i < playerGridItems.length; i++) {
                     clickedShipCell--;
                 }
             }
-            if (i < 0) throw new Error ('Part of ship is off Board')
+            if (i < 0) throw new Error ('Part of ship is off Board');
+            console.log(direction);
             GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
@@ -127,6 +108,8 @@ flipShipDirButton.addEventListener('click', () => {
     for (let i = 0; i < draggableShips.length; i++) {
         draggableShips[i].classList.toggle('draggableShipVertical');
     }
+    if (direction === 'horizontal') direction = 'vertical';
+    else direction = 'horizontal';
 })
 
 let clickedShipCell;
