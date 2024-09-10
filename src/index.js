@@ -41,6 +41,28 @@ shufflePlayerShipsButton.addEventListener('click', () => {
     computerPlayer.playerBoard.boardArray = new Array(100);
     computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
     computerPlayer.playerBoard.updateBoard("computerGridItem");
+
+    let draggableShips = document.getElementsByClassName('draggableShip');
+    for (let i = 0; i < draggableShips.length; i++) {
+        draggableShips[i].style.visibility = 'hidden';
+    }
+});
+
+const startNewGameButton = document.getElementById('empty-board');
+startNewGameButton.addEventListener('click', () => {
+    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+    computerPlayer.playerBoard.updateBoard("computerGridItem");
+
+    humanPlayer.playerBoard.boardArray = new Array(100);
+    // humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+    humanPlayer.playerBoard.updateBoard("humanGridItem");
+
+    let draggableShips = document.getElementsByClassName('draggableShip');
+    for (let i = 0; i < draggableShips.length; i++) {
+        draggableShips[i].style.visibility = 'visible';
+        console.log(draggableShips[i]);
+    }
 });
 
 //maybe update renderBoard to add event listener for drop?
@@ -57,7 +79,6 @@ let arrayOfShipsDivs = [playerDestroyerDiv,playerSubmarineDiv, playerCruiserDiv,
 for (let ship of arrayOfShipsDivs) {
     ship.addEventListener('dragstart', (event)=> {
         dragged=event.target;
-
     })
 }
 let playerGridItems = document.getElementsByClassName('humanGridItem');
@@ -98,7 +119,8 @@ for (let i = 0; i < playerGridItems.length; i++) {
             GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
             humanPlayer.playerBoard.updateBoard("humanGridItem");
         }
-        dragged.remove();
+        // dragged.remove();
+        dragged.style.visibility = 'hidden';
     })
 }
 
