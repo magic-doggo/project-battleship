@@ -24,6 +24,8 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin-left: 6px;
+    font-size: large;
 }
 
 .board {
@@ -31,6 +33,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     flex-wrap: wrap;
     height: 400px;
     width: 400px;
+}
+
+h1 {
+    margin: 20px 6px;
 }
 
 .humanGridItem,
@@ -74,6 +80,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     justify-content: space-between;
     flex-wrap: wrap;
     width: 50%;
+    margin: 6px;
 }
 
 .shipBlock {
@@ -83,15 +90,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     box-sizing: border-box;
     background-color: blue;
 }
-
-/* #playerDestroyer,
-#playerSubmarine,
-#playerCruiser,
-#playerBattleship,
-#playerCarrier {
-    display: flex;
-    cursor: move;
-} */
 
 .draggableShip {
     display: flex;
@@ -103,12 +101,26 @@ ___CSS_LOADER_EXPORT___.push([module.id, `#boards-container {
     display: block;
 }
 
+button {
+    padding: 6px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+}
 
+.ships-and-dir-button {
+    display: flex;
+}
+
+#ships-direction {
+    height: 36px;
+}
 
 /* body { */
     /* Prevent the user from selecting text in the example */
     /* user-select: none;
-  } */`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;AAClC;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;AACd;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;;;;;;;GAOG;;AAEH;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;;;AAIA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n    background-color: blue;\n}\n\n/* #playerDestroyer,\n#playerSubmarine,\n#playerCruiser,\n#playerBattleship,\n#playerCarrier {\n    display: flex;\n    cursor: move;\n} */\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\n\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */"],"sourceRoot":""}]);
+  } */
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;IAChB,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;IACV,WAAW;AACf;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,YAAY;IACZ,YAAY;IACZ,mBAAmB;IACnB,eAAe;AACnB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,YAAY;AAChB;;AAEA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    margin-left: 6px;\n    font-size: large;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\nh1 {\n    margin: 20px 6px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n    margin: 6px;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n    background-color: blue;\n}\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\nbutton {\n    padding: 6px;\n    margin: 10px;\n    border-radius: 10px;\n    font-size: 20px;\n}\n\n.ships-and-dir-button {\n    display: flex;\n}\n\n#ships-direction {\n    height: 36px;\n}\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1109,7 +1121,7 @@ let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playe
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
 // humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-// computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
@@ -1196,11 +1208,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
             }
             if (i < 0) throw new Error ('Part of ship is off Board');
             console.log(direction);
-            _game_board_class__WEBPACK_IMPORTED_MODULE_1__.GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
-            humanPlayer.playerBoard.updateBoard("humanGridItem");
+            humanPlayer.playerBoard.placeShip(ship, i, direction);
+            humanPlayer.playerBoard.updateBoard('humanGridItem');
         }
         // dragged.remove();
         dragged.style.visibility = 'hidden';
+        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects.length);
+        if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
+            humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
+        }
     })
 }
 
