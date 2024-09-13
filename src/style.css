@@ -1,6 +1,8 @@
 #boards-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin-left: 6px;
+    font-size: large;
 }
 
 .board {
@@ -8,6 +10,10 @@
     flex-wrap: wrap;
     height: 400px;
     width: 400px;
+}
+
+h1 {
+    margin: 20px 6px;
 }
 
 .humanGridItem,
@@ -51,6 +57,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     width: 50%;
+    margin: 6px;
 }
 
 .shipBlock {
@@ -60,15 +67,6 @@
     box-sizing: border-box;
     background-color: blue;
 }
-
-/* #playerDestroyer,
-#playerSubmarine,
-#playerCruiser,
-#playerBattleship,
-#playerCarrier {
-    display: flex;
-    cursor: move;
-} */
 
 .draggableShip {
     display: flex;
@@ -80,7 +78,20 @@
     display: block;
 }
 
+button {
+    padding: 6px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+}
 
+.ships-and-dir-button {
+    display: flex;
+}
+
+#ships-direction {
+    height: 36px;
+}
 
 /* body { */
     /* Prevent the user from selecting text in the example */

@@ -29,7 +29,7 @@ let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playe
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
 // humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
-// computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
 
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
@@ -116,11 +116,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
             }
             if (i < 0) throw new Error ('Part of ship is off Board');
             console.log(direction);
-            GameBoard.gameBoardClassInstances[0].placeShip(ship, i, direction)
-            humanPlayer.playerBoard.updateBoard("humanGridItem");
+            humanPlayer.playerBoard.placeShip(ship, i, direction);
+            humanPlayer.playerBoard.updateBoard('humanGridItem');
         }
         // dragged.remove();
         dragged.style.visibility = 'hidden';
+        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects.length);
+        if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
+            humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
+        }
     })
 }
 
