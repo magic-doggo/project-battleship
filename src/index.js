@@ -28,17 +28,18 @@ computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-// humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
-    humanPlayer.playerBoard.boardArray = new Array(100);
+    humanPlayer.playerBoard.resetGame();
     humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
     humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
-    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.resetGame();
     computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 
@@ -50,23 +51,20 @@ shufflePlayerShipsButton.addEventListener('click', () => {
 
 const startNewGameButton = document.getElementById('empty-board');
 startNewGameButton.addEventListener('click', () => {
-    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.resetGame();
     computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-    humanPlayer.playerBoard.boardArray = new Array(100);
-    // humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+    humanPlayer.playerBoard.resetGame();
     humanPlayer.playerBoard.updateBoard("humanGridItem");
 
     let draggableShips = document.getElementsByClassName('draggableShip');
     for (let i = 0; i < draggableShips.length; i++) {
         draggableShips[i].style.visibility = 'visible';
-        console.log(draggableShips[i]);
     }
+    for (let cell of playerGridItems) cell.classList.remove('yourTurn');
+    document.getElementById('boards-container').classList.remove('yourTurn');
 });
-
-//maybe update renderBoard to add event listener for drop?
-//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
 
 let dragged = null;
 let playerDestroyerDiv = document.getElementById('playerDestroyer');
@@ -100,11 +98,6 @@ for (let i = 0; i < playerGridItems.length; i++) {
             } else if (dragged.id == 'playerCarrier') {
                 ship = playerCarrier;
             }
-            //maybe make solution that does not rely on dom,
-            //just create parameter that switches between horiz and vertical?
-            // if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
-            //     direction = 'horizontal';
-            // } else direction = 'vertical';
             while (clickedShipCell > 1) {
                 if (direction == 'horizontal') {
                     i --;
@@ -115,16 +108,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
                 }
             }
             if (i < 0) throw new Error ('Part of ship is off Board');
-            console.log(direction);
             humanPlayer.playerBoard.placeShip(ship, i, direction);
             humanPlayer.playerBoard.updateBoard('humanGridItem');
         }
-        // dragged.remove();
         dragged.style.visibility = 'hidden';
-        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects.length);
         if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
         }
+        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects);
+        console.log(humanPlayer.playerBoard.notShotCoordinates);
     })
 }
 

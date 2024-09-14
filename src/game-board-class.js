@@ -7,9 +7,6 @@ export class GameBoard {
         // 2 [2,0] [2,1] [2,2]
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
-        // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
-        // this.hitCoordinates = []; //no functionality relies on this yet
-        // this.missedCoordinates = []; //no functionality relies on this yet
         this.notShotCoordinates = this.createIndexArray(99); //creates array with val from 0 to 99
         this.arrayOfPlacedShipObjects = [];
         GameBoard.gameBoardClassInstances.push(this);
@@ -17,53 +14,6 @@ export class GameBoard {
 
     static isPlayer1Turn = true;
     static gameBoardClassInstances = [];
-
-    // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
-    //try vertical always going down, horizontal always goes to the right
-    // placeShipOLd(ship, coordinates, direction) {
-    //     let arrayCoords = coordinates;
-    //     if (typeof coordinates == 'object') {
-    //         arrayCoords = (coordinates[0] * 10) + coordinates[1];
-    //     }
-    //     console.log(arrayCoords);
-    //     let tempArray = [];
-    //     let tempShipObject = {};
-    //     for (let i = 0; i < ship.length; i++) {
-    //         if (direction == "vertical") {
-    //             if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
-    //             //increase by 10 when row changes (vertical changes)
-    //             if (this.boardArray[arrayCoords] != undefined) {
-    //                 tempArray = [];
-    //                 throw new Error(`ship overlaps vertically with another at index ${arrayCoords}`);
-    //             }
-    //             tempArray.push(arrayCoords);
-    //             arrayCoords += 10;
-    //             if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
-    //         } else if (direction == "horizontal") {
-    //             if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
-    //             if (this.boardArray[arrayCoords] != undefined) {
-    //                 tempArray = [];
-    //                 throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
-    //             };
-    //             //increase by 1 when column changes (horizontal changes)
-    //             tempArray.push(arrayCoords, ' arraycoords horiz');
-    //             arrayCoords += 1;
-    //             if (arrayCoords >= 100) console.log(arrayCoords);
-    //         }
-    //     }
-    //     // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
-
-    //     tempShipObject.coordinates = tempArray;
-    //     tempShipObject.shipInstance = ship;
-    //     this.arrayOfPlacedShipObjects.push(tempShipObject);
-
-    //     for (let coordinate of tempArray) {
-    //         this.boardArray[coordinate] = 1;
-    //     }
-    //     console.log(this);
-    //     console.log(tempArray , " temparray");
-    //     return tempArray;
-    // }
 
     placeShip(ship, coordinates, direction) {
         let arrayCoords = coordinates;
@@ -105,8 +55,6 @@ export class GameBoard {
                 if (arrayCoords >= 100) console.log(arrayCoords);
             }
         }
-        // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
-
         tempShipObject.coordinatesAsArrayValues = tempArray;
         tempShipObject.shipInstance = ship;
         this.arrayOfPlacedShipObjects.push(tempShipObject);
@@ -121,7 +69,6 @@ export class GameBoard {
         let attackedArrayCoords = (coordinates[0] * 10) + coordinates[1];
         if (this.boardArray[attackedArrayCoords] == 1) {
             this.boardArray[attackedArrayCoords] = "x"; //place x on board if ship is hit
-            // this.hitCoordinates.push(attackedArrayCoords);
             let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
             this.notShotCoordinates.splice(index, 1);
 
@@ -135,7 +82,6 @@ export class GameBoard {
 
         } else if (this.boardArray[attackedArrayCoords] == undefined) {
             this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
-            // this.missedCoordinates.push(attackedArrayCoords);
             let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
             this.notShotCoordinates.splice(index, 1);
         }
@@ -143,9 +89,6 @@ export class GameBoard {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
-        //swap player turn? edit later 100
-        // if (this.checkIfAllShipsSunk()) document.getElementById('winner').innerText = 'Player Won';
-        // return `Turn of `
     }
 
     checkIfAllShipsSunk() {
@@ -198,13 +141,11 @@ export class GameBoard {
                 childDivs[i].style.backgroundColor = "red";
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
-                // childDivs[i].style.backgroundColor = "white";
                 childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = 'miss';
             } else {
                 childDivs[i].innerText = "";
                 childDivs[i].style.removeProperty('background-color');
-                // childDivs[i].style.backgroundColor = "white";
             }
         }
 
@@ -237,8 +178,6 @@ export class GameBoard {
         //     GameBoard.isPlayer1Turn = true;
         //     document.getElementById('player-turn').style.visibility = 'visible';
         // };
-        // console.log(GameBoard.gameBoardClassInstances[0].boardArray);
-        // console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
@@ -255,12 +194,9 @@ export class GameBoard {
     }
 
     receiveAttackFromPc(randomCoordFunction) {
-        //is storing logs to a different class instance in each class instance cheating? GameBoard.gameBoardClassInstances[0]
-        //since we only interact with pc board via dom, pc GameBoard instance can through this interact with player GameBoard instance
         let coordinates = randomCoordFunction();
         if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 1) {
             GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = "x"; //place x on board if ship is hit
-            // GameBoard.gameBoardClassInstances[0].hitCoordinates.push(coordinates);
             let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
             GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
             for (let ship of GameBoard.gameBoardClassInstances[0].arrayOfPlacedShipObjects) {
@@ -272,7 +208,6 @@ export class GameBoard {
             }
         } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == undefined) {
             GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = 0; //place 0 on board if attack missed
-            // GameBoard.gameBoardClassInstances[0].missedCoordinates.push(coordinates);
             let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
             GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
         } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == "x" || GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 0) {
@@ -303,9 +238,7 @@ export class GameBoard {
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
                 childDivs[i].style.removeProperty('background-color');
-                // childDivs[i].style.backgroundColor = "white";
             } else {
-                // childDivs[i].style.backgroundColor = "white";
                 childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = "";
             }
@@ -346,10 +279,16 @@ export class GameBoard {
             }
         }
     }
+
+    resetGame() {
+        this.boardArray = new Array(100);
+        this.arrayOfPlacedShipObjects = [];
+        this.notShotCoordinates = this.createIndexArray(99);
+        GameBoard.isPlayer1Turn = true;
+        document.getElementById('winner').innerText = '';
+    }
 }
 
-//should these be class methods too? used in the GameBoard class but not exactly connected, just helper functions
-//project requirement is not to have global functions
 export function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
     while (n >= 10) n /= 10;
     return Math.floor(n)

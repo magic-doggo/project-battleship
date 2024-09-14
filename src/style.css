@@ -93,6 +93,11 @@ button {
     height: 36px;
 }
 
+#winner {
+    font-size: larger;
+    font-weight: bolder;
+}
+
 /* body { */
     /* Prevent the user from selecting text in the example */
     /* user-select: none;

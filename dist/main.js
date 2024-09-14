@@ -116,11 +116,16 @@ button {
     height: 36px;
 }
 
+#winner {
+    font-size: larger;
+    font-weight: bolder;
+}
+
 /* body { */
     /* Prevent the user from selecting text in the example */
     /* user-select: none;
   } */
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;IAChB,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;IACV,WAAW;AACf;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,YAAY;IACZ,YAAY;IACZ,mBAAmB;IACnB,eAAe;AACnB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,YAAY;AAChB;;AAEA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    margin-left: 6px;\n    font-size: large;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\nh1 {\n    margin: 20px 6px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n    margin: 6px;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n    background-color: blue;\n}\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\nbutton {\n    padding: 6px;\n    margin: 10px;\n    border-radius: 10px;\n    font-size: 20px;\n}\n\n.ships-and-dir-button {\n    display: flex;\n}\n\n#ships-direction {\n    height: 36px;\n}\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,8BAA8B;IAC9B,gBAAgB;IAChB,gBAAgB;AACpB;;AAEA;IACI,aAAa;IACb,eAAe;IACf,aAAa;IACb,YAAY;AAChB;;AAEA;IACI,gBAAgB;AACpB;;AAEA;;IAEI,YAAY;IACZ,WAAW;IACX,sBAAsB;IACtB,qBAAqB;AACzB;;AAEA;IACI,sBAAsB;IACtB,oBAAoB;IACpB,uBAAuB;IACvB,YAAY;AAChB;;AAEA;;IAEI,cAAc;AAClB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,mBAAmB;AACvB;;AAEA;IACI,aAAa;IACb,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,aAAa;IACb,4BAA4B;IAC5B,SAAS;IACT,8BAA8B;IAC9B,eAAe;IACf,UAAU;IACV,WAAW;AACf;;AAEA;IACI,WAAW;IACX,YAAY;IACZ,uBAAuB;IACvB,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;IACI,aAAa;IACb,YAAY;IACZ,wBAAwB;AAC5B;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,YAAY;IACZ,YAAY;IACZ,mBAAmB;IACnB,eAAe;AACnB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,YAAY;AAChB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;AACvB;;AAEA,WAAW;IACP,wDAAwD;IACxD;KACC","sourcesContent":["#boards-container {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    margin-left: 6px;\n    font-size: large;\n}\n\n.board {\n    display: flex;\n    flex-wrap: wrap;\n    height: 400px;\n    width: 400px;\n}\n\nh1 {\n    margin: 20px 6px;\n}\n\n.humanGridItem,\n.computerGridItem {\n    height: 40px;\n    width: 40px;\n    box-sizing: border-box;\n    border: 2px solid red;\n}\n\n.yourTurn {\n    background-color: gray;\n    pointer-events: none;\n    border: 1px solid black;\n    color: wheat;\n}\n\n#human-board,\n#computer-board {\n    margin: 10px 0;\n}\n\n.board-title {\n    margin: 10px 0;\n}\n\n#player-turn {\n    font-weight: bolder;\n}\n\n.buttons-container {\n    display: flex;\n    gap: 20px;\n}\n\n.ships-container {\n    border: 2px solid red;\n    display: flex;\n    /* flex-direction: column; */\n    gap: 10px;\n    justify-content: space-between;\n    flex-wrap: wrap;\n    width: 50%;\n    margin: 6px;\n}\n\n.shipBlock {\n    width: 40px;\n    height: 40px;\n    border: 1px solid black;\n    box-sizing: border-box;\n    background-color: blue;\n}\n\n.draggableShip {\n    display: flex;\n    cursor: move;\n    /* position: absolute; */\n}\n\n.draggableShipVertical {\n    display: block;\n}\n\nbutton {\n    padding: 6px;\n    margin: 10px;\n    border-radius: 10px;\n    font-size: 20px;\n}\n\n.ships-and-dir-button {\n    display: flex;\n}\n\n#ships-direction {\n    height: 36px;\n}\n\n#winner {\n    font-size: larger;\n    font-weight: bolder;\n}\n\n/* body { */\n    /* Prevent the user from selecting text in the example */\n    /* user-select: none;\n  } */\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -586,9 +591,6 @@ class GameBoard {
         // 2 [2,0] [2,1] [2,2]
         // ...
         // 9 [9,0] [9,1] [9,2] .. [9,9]
-        // this.placedShipsCoordinates = []; //iterate through this when ship is hit? not used atm
-        // this.hitCoordinates = []; //no functionality relies on this yet
-        // this.missedCoordinates = []; //no functionality relies on this yet
         this.notShotCoordinates = this.createIndexArray(99); //creates array with val from 0 to 99
         this.arrayOfPlacedShipObjects = [];
         GameBoard.gameBoardClassInstances.push(this);
@@ -596,53 +598,6 @@ class GameBoard {
 
     static isPlayer1Turn = true;
     static gameBoardClassInstances = [];
-
-    // placeShip("boat-length 3", [6,7], vertical) == means the boat starts 6,7 and ends at [6,9]
-    //try vertical always going down, horizontal always goes to the right
-    // placeShipOLd(ship, coordinates, direction) {
-    //     let arrayCoords = coordinates;
-    //     if (typeof coordinates == 'object') {
-    //         arrayCoords = (coordinates[0] * 10) + coordinates[1];
-    //     }
-    //     console.log(arrayCoords);
-    //     let tempArray = [];
-    //     let tempShipObject = {};
-    //     for (let i = 0; i < ship.length; i++) {
-    //         if (direction == "vertical") {
-    //             if (coordinates[0] + ship.length >= 10) throw new Error('ship does not fit vertically'); //fix this so it does not run every iteration
-    //             //increase by 10 when row changes (vertical changes)
-    //             if (this.boardArray[arrayCoords] != undefined) {
-    //                 tempArray = [];
-    //                 throw new Error(`ship overlaps vertically with another at index ${arrayCoords}`);
-    //             }
-    //             tempArray.push(arrayCoords);
-    //             arrayCoords += 10;
-    //             if (arrayCoords >= 100) console.log(arrayCoords, ' arraycoords vert');
-    //         } else if (direction == "horizontal") {
-    //             if (coordinates[1] + ship.length >= 10) throw new Error('ship does not fit horizontally');
-    //             if (this.boardArray[arrayCoords] != undefined) {
-    //                 tempArray = [];
-    //                 throw new Error(`ship overlaps horizontally with another at index ${arrayCoords}`)
-    //             };
-    //             //increase by 1 when column changes (horizontal changes)
-    //             tempArray.push(arrayCoords, ' arraycoords horiz');
-    //             arrayCoords += 1;
-    //             if (arrayCoords >= 100) console.log(arrayCoords);
-    //         }
-    //     }
-    //     // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
-
-    //     tempShipObject.coordinates = tempArray;
-    //     tempShipObject.shipInstance = ship;
-    //     this.arrayOfPlacedShipObjects.push(tempShipObject);
-
-    //     for (let coordinate of tempArray) {
-    //         this.boardArray[coordinate] = 1;
-    //     }
-    //     console.log(this);
-    //     console.log(tempArray , " temparray");
-    //     return tempArray;
-    // }
 
     placeShip(ship, coordinates, direction) {
         let arrayCoords = coordinates;
@@ -684,8 +639,6 @@ class GameBoard {
                 if (arrayCoords >= 100) console.log(arrayCoords);
             }
         }
-        // this.placedShipsCoordinates.push(tempArray); //not going to use placedshipscoordinates?
-
         tempShipObject.coordinatesAsArrayValues = tempArray;
         tempShipObject.shipInstance = ship;
         this.arrayOfPlacedShipObjects.push(tempShipObject);
@@ -700,7 +653,6 @@ class GameBoard {
         let attackedArrayCoords = (coordinates[0] * 10) + coordinates[1];
         if (this.boardArray[attackedArrayCoords] == 1) {
             this.boardArray[attackedArrayCoords] = "x"; //place x on board if ship is hit
-            // this.hitCoordinates.push(attackedArrayCoords);
             let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
             this.notShotCoordinates.splice(index, 1);
 
@@ -714,7 +666,6 @@ class GameBoard {
 
         } else if (this.boardArray[attackedArrayCoords] == undefined) {
             this.boardArray[attackedArrayCoords] = 0; //place 0 on board if attack missed
-            // this.missedCoordinates.push(attackedArrayCoords);
             let index = this.notShotCoordinates.indexOf(attackedArrayCoords);
             this.notShotCoordinates.splice(index, 1);
         }
@@ -722,9 +673,6 @@ class GameBoard {
             throw new Error(`You have already attacked ${coordinates} before, try a different spot`);
         }
         else throw new Error('Not a valid coordinate') //can make it check of coordinate exists in boardArray, but not needed?
-        //swap player turn? edit later 100
-        // if (this.checkIfAllShipsSunk()) document.getElementById('winner').innerText = 'Player Won';
-        // return `Turn of `
     }
 
     checkIfAllShipsSunk() {
@@ -777,13 +725,11 @@ class GameBoard {
                 childDivs[i].style.backgroundColor = "red";
                 childDivs[i].innerText = 'hit';
             } else if (this.boardArray[i] == 0) {
-                // childDivs[i].style.backgroundColor = "white";
                 childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = 'miss';
             } else {
                 childDivs[i].innerText = "";
                 childDivs[i].style.removeProperty('background-color');
-                // childDivs[i].style.backgroundColor = "white";
             }
         }
 
@@ -816,8 +762,6 @@ class GameBoard {
         //     GameBoard.isPlayer1Turn = true;
         //     document.getElementById('player-turn').style.visibility = 'visible';
         // };
-        // console.log(GameBoard.gameBoardClassInstances[0].boardArray);
-        // console.log(GameBoard.gameBoardClassInstances[1].boardArray, "  computer");
         if (this.checkIfAllShipsSunk()) {
             document.getElementById('winner').innerText = 'Player 1 Won';
             document.getElementById('boards-container').classList.add('yourTurn');
@@ -834,12 +778,9 @@ class GameBoard {
     }
 
     receiveAttackFromPc(randomCoordFunction) {
-        //is storing logs to a different class instance in each class instance cheating? GameBoard.gameBoardClassInstances[0]
-        //since we only interact with pc board via dom, pc GameBoard instance can through this interact with player GameBoard instance
         let coordinates = randomCoordFunction();
         if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 1) {
             GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = "x"; //place x on board if ship is hit
-            // GameBoard.gameBoardClassInstances[0].hitCoordinates.push(coordinates);
             let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
             GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
             for (let ship of GameBoard.gameBoardClassInstances[0].arrayOfPlacedShipObjects) {
@@ -851,7 +792,6 @@ class GameBoard {
             }
         } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == undefined) {
             GameBoard.gameBoardClassInstances[0].boardArray[coordinates] = 0; //place 0 on board if attack missed
-            // GameBoard.gameBoardClassInstances[0].missedCoordinates.push(coordinates);
             let index = GameBoard.gameBoardClassInstances[0].notShotCoordinates.indexOf(coordinates);
             GameBoard.gameBoardClassInstances[0].notShotCoordinates.splice(index, 1);
         } else if (GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == "x" || GameBoard.gameBoardClassInstances[0].boardArray[coordinates] == 0) {
@@ -882,9 +822,7 @@ class GameBoard {
             } else if (GameBoard.gameBoardClassInstances[0].boardArray[i] == 0) {
                 childDivs[i].innerText = 'miss';
                 childDivs[i].style.removeProperty('background-color');
-                // childDivs[i].style.backgroundColor = "white";
             } else {
-                // childDivs[i].style.backgroundColor = "white";
                 childDivs[i].style.removeProperty('background-color');
                 childDivs[i].innerText = "";
             }
@@ -925,10 +863,16 @@ class GameBoard {
             }
         }
     }
+
+    resetGame() {
+        this.boardArray = new Array(100);
+        this.arrayOfPlacedShipObjects = [];
+        this.notShotCoordinates = this.createIndexArray(99);
+        GameBoard.isPlayer1Turn = true;
+        document.getElementById('winner').innerText = '';
+    }
 }
 
-//should these be class methods too? used in the GameBoard class but not exactly connected, just helper functions
-//project requirement is not to have global functions
 function firstDigit(n) { //use to get 1st index digit and convert too 1st coordinate
     while (n >= 10) n /= 10;
     return Math.floor(n)
@@ -1120,17 +1064,18 @@ computerPlayer.playerBoard.renderBoard(computerBoard, 'computerGridItem');
 let arrayOfPlayerShips = [playerDestroyer, playerSubmarine, playerCruiser, playerBattleship, playerCarrier];
 let arrayOfComputerShips = [computerDestroyer, computerSubmarine, computerCruiser, computerBattleship, computerCarrier];
 
-// humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
+humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
 computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
+humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
 
 const shufflePlayerShipsButton = document.getElementById('shuffle-board');
 shufflePlayerShipsButton.addEventListener('click', () => {
-    humanPlayer.playerBoard.boardArray = new Array(100);
+    humanPlayer.playerBoard.resetGame();
     humanPlayer.playerBoard.placeShipsRandomly(arrayOfPlayerShips, humanPlayer);
     humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
 
-    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.resetGame();
     computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 
@@ -1142,23 +1087,20 @@ shufflePlayerShipsButton.addEventListener('click', () => {
 
 const startNewGameButton = document.getElementById('empty-board');
 startNewGameButton.addEventListener('click', () => {
-    computerPlayer.playerBoard.boardArray = new Array(100);
+    computerPlayer.playerBoard.resetGame();
     computerPlayer.playerBoard.placeShipsRandomly(arrayOfComputerShips, computerPlayer);
     computerPlayer.playerBoard.updateBoard("computerGridItem");
 
-    humanPlayer.playerBoard.boardArray = new Array(100);
-    // humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack("humanGridItem");
+    humanPlayer.playerBoard.resetGame();
     humanPlayer.playerBoard.updateBoard("humanGridItem");
 
     let draggableShips = document.getElementsByClassName('draggableShip');
     for (let i = 0; i < draggableShips.length; i++) {
         draggableShips[i].style.visibility = 'visible';
-        console.log(draggableShips[i]);
     }
+    for (let cell of playerGridItems) cell.classList.remove('yourTurn');
+    document.getElementById('boards-container').classList.remove('yourTurn');
 });
-
-//maybe update renderBoard to add event listener for drop?
-//https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event
 
 let dragged = null;
 let playerDestroyerDiv = document.getElementById('playerDestroyer');
@@ -1192,11 +1134,6 @@ for (let i = 0; i < playerGridItems.length; i++) {
             } else if (dragged.id == 'playerCarrier') {
                 ship = playerCarrier;
             }
-            //maybe make solution that does not rely on dom,
-            //just create parameter that switches between horiz and vertical?
-            // if (window.getComputedStyle(playerDestroyerDiv).display == 'flex') {
-            //     direction = 'horizontal';
-            // } else direction = 'vertical';
             while (clickedShipCell > 1) {
                 if (direction == 'horizontal') {
                     i --;
@@ -1207,16 +1144,15 @@ for (let i = 0; i < playerGridItems.length; i++) {
                 }
             }
             if (i < 0) throw new Error ('Part of ship is off Board');
-            console.log(direction);
             humanPlayer.playerBoard.placeShip(ship, i, direction);
             humanPlayer.playerBoard.updateBoard('humanGridItem');
         }
-        // dragged.remove();
         dragged.style.visibility = 'hidden';
-        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects.length);
         if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
         }
+        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects);
+        console.log(humanPlayer.playerBoard.notShotCoordinates);
     })
 }
 
