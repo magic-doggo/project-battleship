@@ -286,6 +286,11 @@ export class GameBoard {
         this.notShotCoordinates = this.createIndexArray(99);
         GameBoard.isPlayer1Turn = true;
         document.getElementById('winner').innerText = '';
+        //find out why updateBoard sometimes does not clear all red color when starting new game without this
+        let cellDivs = document.getElementsByClassName('computerGridItem');
+        for (let i = 0; i < this.boardArray; i++) {
+            cellDivs[i].style.removeProperty('background-color');
+        }
     }
 }
 

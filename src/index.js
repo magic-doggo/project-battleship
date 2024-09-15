@@ -115,8 +115,6 @@ for (let i = 0; i < playerGridItems.length; i++) {
         if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
         }
-        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects);
-        console.log(humanPlayer.playerBoard.notShotCoordinates);
     })
 }
 
