@@ -870,6 +870,11 @@ class GameBoard {
         this.notShotCoordinates = this.createIndexArray(99);
         GameBoard.isPlayer1Turn = true;
         document.getElementById('winner').innerText = '';
+        //find out why updateBoard sometimes does not clear all red color when starting new game without this
+        let cellDivs = document.getElementsByClassName('computerGridItem');
+        for (let i = 0; i < this.boardArray; i++) {
+            cellDivs[i].style.removeProperty('background-color');
+        }
     }
 }
 
@@ -1151,8 +1156,6 @@ for (let i = 0; i < playerGridItems.length; i++) {
         if (humanPlayer.playerBoard.arrayOfPlacedShipObjects.length >= 5) {
             humanPlayer.playerBoard.updatePlayerBoardAfterPcAttack('humanGridItem')
         }
-        console.log(humanPlayer.playerBoard.arrayOfPlacedShipObjects);
-        console.log(humanPlayer.playerBoard.notShotCoordinates);
     })
 }
 
